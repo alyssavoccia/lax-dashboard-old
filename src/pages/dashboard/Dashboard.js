@@ -5,23 +5,10 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 
-import PerformanceRelativeToPeers from '../charts/PerformanceRelativeToPeers.js';
-import StrengthsAssessment from '../charts/StrengthsAssessment';
-import Percentiles from '../charts/Percentiles.js';
-import TapScore from '../charts/TapScore.js';
-
-// function Copyright(props) {
-//   return (
-//     <Typography variant="body2" color="text.secondary" align="center" {...props}>
-//       {'Copyright © '}
-//       <Link color="inherit" href="https://mui.com/">
-//         Your Website
-//       </Link>{' '}
-//       {new Date().getFullYear()}
-//       {'.'}
-//     </Typography>
-//   );
-// }
+import PerformanceRelativeToPeers from '../../components/charts/PerformanceRelativeToPeers.js';
+import StrengthsAssessment from '../../components/charts/StrengthsAssessment';
+import Percentiles from '../../components/charts/Percentiles.js';
+import TapScore from '../../components/charts/TapScore.js';
 
 function DashboardContent() {
 

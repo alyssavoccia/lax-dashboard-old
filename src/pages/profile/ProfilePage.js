@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { Box } from '@material-ui/core';
-import { Toolbar } from '@mui/material';
 import { Container } from '@mui/material';
+import { Toolbar } from '@mui/material';
 
-function WorkoutsPage() {
+function ProfilePage() {
   return (
     <Box
     component="main"
@@ -17,13 +17,12 @@ function WorkoutsPage() {
       overflow: 'auto',
     }}
     >
-      <Toolbar />
       <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-        <h1>Workouts Page</h1>
+        <Toolbar />
+        <h1>Profile Page</h1>
       </Container>
-    
     </Box>
   )
 }
 
-export default WorkoutsPage;
+export default ProfilePage;

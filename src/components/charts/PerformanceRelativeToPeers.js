@@ -1,18 +1,7 @@
 import * as React from 'react';
 import { PureComponent } from 'react';
 import Title from '../title/Title';
-import {
-  BarChart,
-  Bar,
-  // Cell,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ReferenceLine,
-  ResponsiveContainer,
-} from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ReferenceLine, ResponsiveContainer } from 'recharts';
 
 const data = [
   {
@@ -52,24 +41,23 @@ class PerformanceRelativeToPeers extends PureComponent {
     return (
       <React.Fragment>
         <Title>Performance Relative to Peer Average</Title>
-        <ResponsiveContainer width="100%" height="100%">
+        <ResponsiveContainer width="99%" height="99%">
           <BarChart
-            width={500}
-            height={300}
+            // width={500}
+            // height={300}
             data={data}
             stackOffset="sign"
             margin={{
-              top: 5,
-              right: 5,
-              left: 5,
-              bottom: 5,
+              top: 0,
+              right: 0,
+              left: -40,
+              bottom: 0,
             }}
           >
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="name" />
             <YAxis />
             <Tooltip />
-            <Legend />
             <ReferenceLine y={0} stroke="#000" />
             <Bar dataKey="Player" fill="#82ca9d" stackId="stack" />
           </BarChart>

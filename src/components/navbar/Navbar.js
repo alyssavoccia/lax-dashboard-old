@@ -4,14 +4,13 @@ import MuiDrawer from '@mui/material/Drawer';
 import MuiAppBar from '@mui/material/AppBar';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import NotificationsIcon from '@mui/icons-material/Notifications';
+import { Avatar } from '@material-ui/core';
 import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import Badge from '@mui/material/Badge';
 import Toolbar from '@mui/material/Toolbar';
-import { mainListItems, secondaryListItems } from '../nav-list-items/nav-list-items';
+import { mainListItems, secondaryListItems } from '../navbar/nav-list-items';
 
 
 const drawerWidth = 240;
@@ -99,9 +98,7 @@ function Navbar() {
               Lax Dashboard
             </Typography>
             <IconButton color="inherit">
-              <Badge badgeContent={4} color="secondary">
-                <NotificationsIcon />
-              </Badge>
+              <Avatar>AV</Avatar>
             </IconButton>
           </Toolbar>
         </AppBar>
