@@ -9,7 +9,6 @@ import PerformanceRelativeToPeers from '../charts/PerformanceRelativeToPeers.js'
 import StrengthsAssessment from '../charts/StrengthsAssessment';
 import Percentiles from '../charts/Percentiles.js';
 import TapScore from '../charts/TapScore.js';
-import Deposits from '../deposits/Deposits';
 
 // function Copyright(props) {
 //   return (
