@@ -52,7 +52,7 @@ class App extends React.Component {
         <ThemeProvider theme={mdTheme}>
           <CssBaseline />
           <Box sx={{ display: 'flex' }}>
-            <Navbar />
+            {this.props.currentUser ? (<Navbar />) : (<Redirect to='/' />)}
             <Switch>
               <Route exact path = '/' render={() => this.props.currentUser ? (<Redirect to='/dashboard' />) : (<SignIn />)} />
               <Route path='/dashboard' component={DashboardPage} />
