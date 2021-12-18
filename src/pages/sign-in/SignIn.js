@@ -3,8 +3,6 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -12,6 +10,8 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+
+import { auth } from '../../firebase/firebase';
 
 const theme = createTheme();
 
@@ -23,6 +23,25 @@ class SignIn extends React.Component {
       email: '',
       password: ''
     };
+  }
+
+  handleSubmit = async event => {
+    event.preventDefault();
+
+    const {email, password} = this.state;
+
+    try {
+      await auth.signInWithEmailAndPassword(email, password);
+      this.setState({email: '', password: ''});
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  handleChange = event => {
+    const {value, name} = event.target;
+
+    this.setState({[name]: value});
   }
 
   render() {
@@ -54,6 +73,8 @@ class SignIn extends React.Component {
                 name="email"
                 autoComplete="email"
                 autoFocus
+                value={this.state.email}
+                onChange={this.handleChange}
               />
               <TextField
                 margin="normal"
@@ -64,12 +85,11 @@ class SignIn extends React.Component {
                 type="password"
                 id="password"
                 autoComplete="current-password"
-              />
-              <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
+                value={this.state.password}
+                onChange={this.handleChange}
               />
               <Button
+                onClick={this.handleSubmit}
                 type="submit"
                 fullWidth
                 variant="contained"

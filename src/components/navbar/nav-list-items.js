@@ -9,11 +9,13 @@ import LogoutIcon from '@mui/icons-material/Logout'
 import PeopleIcon from '@mui/icons-material/People'
 import AssignmentIcon from '@mui/icons-material/Assignment';
 
+import { auth } from '../../firebase/firebase';
+
 import { Link } from 'react-router-dom';
 
 export const mainListItems = (
   <div>
-    <ListItem button to='/' component={Link}>
+    <ListItem button to='/dashboard' component={Link}>
       <ListItemIcon>
         <DashboardIcon />
       </ListItemIcon>
@@ -31,7 +33,7 @@ export const mainListItems = (
       </ListItemIcon>
       <ListItemText primary="Profile" />
     </ListItem>
-    <ListItem button>
+    <ListItem button onClick={() => auth.signOut()}>
       <ListItemIcon>
         <LogoutIcon />
       </ListItemIcon>

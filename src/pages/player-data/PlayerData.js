@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Box } from '@material-ui/core';
-import { Container, Toolbar, Grid, Paper } from '@mui/material';
+import { Container, Toolbar, Grid } from '@mui/material';
 import Title from '../../components/title/Title';
 import { DataGrid } from '@mui/x-data-grid';
 
