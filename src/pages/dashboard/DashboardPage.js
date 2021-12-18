@@ -5,12 +5,12 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 
-import PerformanceRelativeToPeers from '../../components/charts/PerformanceRelativeToPeers.js';
+import PerformanceRelativeToPeers from '../../components/charts/PerformanceRelativeToPeers'
 import StrengthsAssessment from '../../components/charts/StrengthsAssessment';
 import Percentiles from '../../components/charts/Percentiles.js';
 import TapScore from '../../components/charts/TapScore.js';
 
-function DashboardContent() {
+function DashboardPage() {
 
   return (
     <Box
@@ -121,5 +121,5 @@ function DashboardContent() {
 }
 
 export default function Dashboard() {
-  return <DashboardContent />;
+  return <DashboardPage/>;
 }
