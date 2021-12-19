@@ -10,7 +10,6 @@ import Box from '@mui/material/Box';
 import Navbar from './components/navbar/Navbar';
 import SignIn from './pages/sign-in/SignIn';
 import DashboardPage from './pages/dashboard/DashboardPage';
-import WorkoutsPage from './pages/workouts/Workouts';
 import ProfilePage from './pages/profile/ProfilePage';
 import PlayerDataPage from './pages/player-data/PlayerData';
 
@@ -46,8 +45,9 @@ class App extends React.Component {
     this.unsubscribeFromAuth();
   }
 
+
   render() {
-    return (
+    let app = (
       <div className="App">
         <ThemeProvider theme={mdTheme}>
           <CssBaseline />
@@ -56,13 +56,15 @@ class App extends React.Component {
             <Switch>
               <Route exact path = '/' render={() => this.props.currentUser ? (<Redirect to='/dashboard' />) : (<SignIn />)} />
               <Route path='/dashboard' component={DashboardPage} />
-              <Route path='/workouts' component={WorkoutsPage} />
               <Route path='/profile' component={ProfilePage} />
               <Route path='/player-data' component={PlayerDataPage} />
             </Switch>
           </Box>
         </ThemeProvider>
       </div>
+    )
+    return (
+      this.props.currentUser ? app : <></>
     );
   }
 }

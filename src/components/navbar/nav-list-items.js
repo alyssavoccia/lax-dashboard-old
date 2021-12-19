@@ -21,12 +21,6 @@ export const mainListItems = (
       </ListItemIcon>
       <ListItemText primary="Dashboard" />
     </ListItem>
-    <ListItem button to='/workouts' component={Link}>
-      <ListItemIcon>
-        <FitnessCenterIcon />
-      </ListItemIcon>
-      <ListItemText primary="Workouts" />
-    </ListItem>
     <ListItem button to='/profile' component={Link}>
       <ListItemIcon>
         <PersonIcon />

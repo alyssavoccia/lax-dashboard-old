@@ -15,7 +15,6 @@ import Toolbar from '@mui/material/Toolbar';
 
 import { mainListItems, secondaryListItems } from '../navbar/nav-list-items';
 
-
 const drawerWidth = 240;
 
 const AppBar = styled(MuiAppBar, {
@@ -122,8 +121,10 @@ function Navbar({ currentUser }) {
           </Toolbar>
           <Divider />
           <List>{mainListItems}</List>
-          <Divider />
-          <List>{secondaryListItems}</List>
+          {currentUser.isAdmin ? <>
+            <Divider />
+            <List>{secondaryListItems}</List>
+          </> : <></> }
         </Drawer>
     </>
   )
