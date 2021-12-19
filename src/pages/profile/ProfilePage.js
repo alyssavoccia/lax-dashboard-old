@@ -11,12 +11,13 @@ import Title from '../../components/title/Title';
 import { firestore } from '../../firebase/firebase';
 
 function ProfilePage({ currentUser }) {
-
-  console.log(currentUser);
-  // team info
-  if (!currentUser.isAdmin) {
-    firestore.collection(currentUser.team).doc(currentUser.id).collection('data').doc(currentUser.id).get().then(doc => console.log(doc.data()))
-  }
+  if (currentUser != null) {
+    console.log(currentUser);
+    // team info
+    if (!currentUser.isAdmin) {
+      firestore.collection(currentUser.team).doc(currentUser.id).collection('data').doc(currentUser.id).get().then(doc => console.log(doc.data()))
+    }
+  } 
 
   return (
     <Box

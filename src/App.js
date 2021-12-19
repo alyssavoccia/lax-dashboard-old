@@ -47,7 +47,7 @@ class App extends React.Component {
 
 
   render() {
-    let app = (
+    return (
       <div className="App">
         <ThemeProvider theme={theme}>
           <CssBaseline />
@@ -62,9 +62,6 @@ class App extends React.Component {
           </Box>
         </ThemeProvider>
       </div>
-    )
-    return (
-      this.props.currentUser ? app : <SignIn />
     );
   }
 }
