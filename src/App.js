@@ -17,7 +17,7 @@ import { setCurrentUser } from './redux/user/user.actions';
 
 import './App.css';
 
-const mdTheme = createTheme();
+const theme = createTheme();
 
 class App extends React.Component {
   unsubscribeFromAuth = null;
@@ -49,7 +49,7 @@ class App extends React.Component {
   render() {
     let app = (
       <div className="App">
-        <ThemeProvider theme={mdTheme}>
+        <ThemeProvider theme={theme}>
           <CssBaseline />
           <Box sx={{ display: 'flex' }}>
             {this.props.currentUser ? (<Navbar />) : (<Redirect to='/' />)}
@@ -64,7 +64,7 @@ class App extends React.Component {
       </div>
     )
     return (
-      this.props.currentUser ? app : <></>
+      this.props.currentUser ? app : <SignIn />
     );
   }
 }
