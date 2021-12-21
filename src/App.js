@@ -11,6 +11,7 @@ import Navbar from './components/navbar/Navbar';
 import SignIn from './pages/sign-in/SignIn';
 import DashboardPage from './pages/dashboard/DashboardPage';
 import ProfilePage from './pages/profile/ProfilePage';
+import TeamPage from './pages/team/TeamPage';
 import PlayerDataPage from './pages/player-data/PlayerData';
 
 import { setCurrentUser } from './redux/user/user.actions';
@@ -57,6 +58,7 @@ class App extends React.Component {
               <Route exact path = '/' render={() => this.props.currentUser ? (<Redirect to='/dashboard' />) : (<SignIn />)} />
               <Route path='/dashboard' component={DashboardPage} />
               <Route path='/profile' component={ProfilePage} />
+              <Route path='/team' component={TeamPage} />
               <Route path='/player-data' component={PlayerDataPage} />
             </Switch>
           </Box>

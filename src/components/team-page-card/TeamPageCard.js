@@ -1,0 +1,56 @@
+import * as React from 'react';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Chip from '@mui/material/Chip';
+import Stack from '@mui/material/Stack';
+import Typography from '@mui/material/Typography';
+
+function TeamPageCard({ name, position, grad, agility, broad, forty, three, vertical, wb }) {
+  return (
+    <Card sx={{ minWidth: 275 }}>
+      <CardContent>
+        <Typography sx={{ fontSize: 18 }} color="text.secondary" gutterBottom>
+          {name}
+        </Typography>
+        <Typography sx={{ mb: 1.5 }} color="text.secondary">
+          {position} &bull; {grad}
+        </Typography>
+
+        <Stack spacing={1} alignItems="center">
+          {/* ROW 1 */}
+          <Stack direction="row" spacing={1}>
+            <Stack>
+              <Chip label="50's Wall Ball" color="primary" />
+              <Typography>{wb}</Typography>
+            </Stack>
+            <Stack>
+              <Chip label="300's" color="primary" />
+              <Typography>{three}</Typography>
+            </Stack>
+            <Stack>
+              <Chip label="Broad Jump" color="primary" />
+              <Typography>{broad}</Typography>
+            </Stack>
+          </Stack>
+          {/* ROW 2 */}
+          <Stack direction="row" spacing={1}>
+            <Stack>
+              <Chip label="Vertical Jump" color="primary" />
+              <Typography>{vertical}</Typography>
+            </Stack>
+            <Stack>
+              <Chip label="5-10-5" color="primary" />
+              <Typography>{agility}</Typography>
+            </Stack>
+            <Stack>
+              <Chip label="40yd Dash" color="primary" />
+              <Typography>{forty}</Typography>
+            </Stack>
+          </Stack>
+        </Stack>
+      </CardContent>
+    </Card>
+  );
+}
+
+export default TeamPageCard;

@@ -1,12 +1,8 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
-import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
-
-// import { connect } from 'react-redux';
-// import { firestore } from '../../firebase/firebase';
 
 function ProfileDataCard({ dataTitle, data }) {
 

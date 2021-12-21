@@ -37,7 +37,7 @@ export const mainListItems = (
 
 export const secondaryListItems = (
   <div>
-    <ListItem button>
+    <ListItem button to='/team' component={Link}>
       <ListItemIcon>
         <PeopleIcon />
       </ListItemIcon>

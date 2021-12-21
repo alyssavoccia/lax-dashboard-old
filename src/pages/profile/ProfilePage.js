@@ -20,8 +20,7 @@ class ProfilePage extends React.Component {
 
   componentDidMount() {
     let self = this;
-    console.log(this.props.currentUser);
-    // let userData = {};
+
     // team info
     if (!this.props.currentUser.isAdmin) {
       async function getUserData() {
@@ -32,7 +31,6 @@ class ProfilePage extends React.Component {
         self.setState({
           ...userDataObj
         })
-        // userData = Object.assign(userData, userDataObj);
       }
       getUserData();
     }
@@ -41,6 +39,7 @@ class ProfilePage extends React.Component {
     //   // userData = firestore.collection(currentUser.team).doc(currentUser.id).collection('data').doc(currentUser.id).get().then(doc => doc.data())
   render() {
     const { agility, broad, forty, grad, position, three, vertical, wb } = this.state;
+    
     return (
       <Box
         component="main"
