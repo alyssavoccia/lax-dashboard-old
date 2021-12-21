@@ -7,6 +7,8 @@ import { Toolbar } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Title from '../../components/title/Title';
+import Stack from '@mui/material/Stack';
+import Chip from '@mui/material/Chip';
 
 import { firestore } from '../../firebase/firebase';
 import { doc, getDoc } from 'firebase/firestore';
@@ -56,52 +58,62 @@ class ProfilePage extends React.Component {
         <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
           <Grid container spacing={3}>
             <Grid item xs={12}>
-              <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', height: 150 }}>
-                <Title>Hello, {this.props.currentUser.displayName}</Title>
+              <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', height: 100, justifyContent: 'center', alignItems: 'flex-start' }}>
+                <Title>{this.props.currentUser.displayName}</Title>
+                <Stack direction="row" spacing={2}>
+                  {this.props.currentUser.isAdmin 
+                  ? <Chip label="Admin" /> 
+                  : <>
+                      <Chip label={position} />
+                      <Chip label={grad} />
+                    </>
+                  }
+                </Stack>
               </Paper>
             </Grid>
 
+            {/* Checks to see if the user is an admin before making data cards */}
             {this.props.currentUser.isAdmin ? <></> : (
             <>
-            {/* ROW 1 */}
-            <Grid item xs={4}>
-              <ProfileDataCard 
-                dataTitle="50's Wall Ball" 
-                data={wb}
-              />
-            </Grid>
-            <Grid item xs={4}>
-              <ProfileDataCard 
-                dataTitle="300's" 
-                data={three}
-              />
-            </Grid>
-            <Grid item xs={4}>
-              <ProfileDataCard 
-                dataTitle="Broad Jump" 
-                data={broad}
-              />
-            </Grid>
+              {/* ROW 1 */}
+              <Grid item xs={4}>
+                <ProfileDataCard 
+                  dataTitle="50's Wall Ball" 
+                  data={wb}
+                />
+              </Grid>
+              <Grid item xs={4}>
+                <ProfileDataCard 
+                  dataTitle="300's" 
+                  data={three}
+                />
+              </Grid>
+              <Grid item xs={4}>
+                <ProfileDataCard 
+                  dataTitle="Broad Jump" 
+                  data={broad}
+                />
+              </Grid>
 
-            {/* ROW 2 */}
-            <Grid item xs={4}>
-              <ProfileDataCard 
-                dataTitle="Vertical Jump" 
-                data={vertical}
-              />
-            </Grid>
-            <Grid item xs={4}>
-              <ProfileDataCard 
-                dataTitle="5-10-5" 
-                data={agility}
-              />
-            </Grid>
-            <Grid item xs={4}>
-              <ProfileDataCard 
-                dataTitle="40yd Dash" 
-                data={forty}
-              />
-            </Grid>
+              {/* ROW 2 */}
+              <Grid item xs={4}>
+                <ProfileDataCard 
+                  dataTitle="Vertical Jump" 
+                  data={vertical}
+                />
+              </Grid>
+              <Grid item xs={4}>
+                <ProfileDataCard 
+                  dataTitle="5-10-5" 
+                  data={agility}
+                />
+              </Grid>
+              <Grid item xs={4}>
+                <ProfileDataCard 
+                  dataTitle="40yd Dash" 
+                  data={forty}
+                />
+              </Grid>
             </>)}
 
           </Grid>
