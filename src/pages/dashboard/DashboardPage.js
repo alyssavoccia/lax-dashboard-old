@@ -5,6 +5,7 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 
+import Title from '../../components/title/Title'
 import PerformanceRelativeToPeers from '../../components/charts/PerformanceRelativeToPeers'
 import StrengthsAssessment from '../../components/charts/StrengthsAssessment';
 import Percentiles from '../../components/charts/Percentiles.js';
@@ -108,8 +109,8 @@ function DashboardPage() {
           </Grid>
 
           <Grid item xs={12} md={6}>
-            <Paper sx={{ p: 0, display: 'flex', flexDirection: 'column' }}>
-              {<h1>Strengths / Weaknesses</h1>}
+            <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+              <Title>Strengths / Areas for Improvement</Title>
             </Paper>
           </Grid>
         </Grid>
