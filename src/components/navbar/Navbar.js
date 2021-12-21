@@ -13,7 +13,7 @@ import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Toolbar from '@mui/material/Toolbar';
 
-import { mainListItems, secondaryListItems } from '../navbar/nav-list-items';
+import { mainListItems, secondaryListItems } from './nav-list-items';
 
 const drawerWidth = 240;
 
@@ -119,7 +119,6 @@ function Navbar({ currentUser }) {
               <ChevronLeftIcon />
             </IconButton>
           </Toolbar>
-          <Divider />
           <List>{mainListItems}</List>
           {currentUser.isAdmin ? <>
             <Divider />
