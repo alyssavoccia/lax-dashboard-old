@@ -55,7 +55,6 @@ class PlayerDataPage extends React.Component {
   
   render() {
     let usersDataArr = this.state.usersData;
-    console.log(usersDataArr);
 
     return (
       <Box

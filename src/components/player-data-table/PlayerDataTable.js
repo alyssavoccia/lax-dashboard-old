@@ -1,13 +1,15 @@
 import * as React from 'react';
+import { connect } from 'react-redux';
 import { DataGrid } from '@mui/x-data-grid';
-import { display } from '@mui/system';
 
+import { firestore } from '../../firebase/firebase';
+import { doc, setDoc } from 'firebase/firestore';
 
 const columns = [
-  { field: 'displayName', headerName: 'Name', width: 150 },
-  { field: 'id', headerName: 'ID', type: 'number' },
-  { field: 'grad', headerName: 'Grad Yr', type: 'text', editable: true },
-  { field: 'position', headerName: 'Position', type: 'text', width: 80, editable: true },
+  { field: 'displayName', headerName: 'Name', width: 150, editable: true },
+  { field: 'id', headerName: 'ID', type: 'number', editable: true },
+  { field: 'grad', headerName: 'Grad Yr', editable: true },
+  { field: 'position', headerName: 'Position', width: 80, editable: true },
   { field: 'wb', headerName: "50's Wall Ball", type: 'number', width: 120, editable: true },
   { field: 'three', headerName: "300's", type: 'number', width: 60, editable: true },
   { field: 'broad', headerName: 'Broad Jump', type: 'number', width: 110, editable: true },
@@ -16,7 +18,9 @@ const columns = [
   { field: 'forty', headerName: '40yd Dash', type: 'number', editable: true },
 ];
 
-function PlayerDataTable({ rows }) {
+
+
+function PlayerDataTable({ rows, currentUser }) {
   const [editRowsModel, setEditRowsModel] = React.useState({});
   const [editRowData, setEditRowData] = React.useState({});
 
@@ -26,18 +30,29 @@ function PlayerDataTable({ rows }) {
 
       // user stops editing when the edit model is empty
       if (editedIds.length === 0) {
-        alert(JSON.stringify(editRowData, null, 4));
-        // update on firebase
+        // Update on firebase
+        const updatedData = {
+          displayName: editRowData.displayName.value,
+          id: editRowData.id.value,
+          grad: editRowData.grad.value,
+          position: editRowData.position.value,
+          wb: editRowData.wb.value,
+          three: editRowData.three.value,
+          broad: editRowData.broad.value,
+          vertical: editRowData.vertical.value,
+          agility: editRowData.agility.value,
+          forty: editRowData.forty.value
+        }
+
+        const docRef = doc(firestore, currentUser.team, editRowData.id.value, "data", editRowData.id.value);
+        setDoc(docRef, updatedData);
       } else {
         setEditRowData(model[editedIds[0]]);
       }
-
       setEditRowsModel(model);
     },
     [editRowData],
   );
-
-  console.log(editRowData);
 
   return (
     <div style={{ backgroundColor: '#FFF', height: 500, width: '100%' }}>
@@ -52,4 +67,9 @@ function PlayerDataTable({ rows }) {
   );
 }
 
-export default PlayerDataTable;
+const mapStateToProps = state => ({
+  currentUser: state.user.currentUser
+});
+
+
+export default connect(mapStateToProps)(PlayerDataTable);
