@@ -12,7 +12,7 @@ import SignIn from './pages/sign-in/SignIn';
 import DashboardPage from './pages/dashboard/DashboardPage';
 import ProfilePage from './pages/profile/ProfilePage';
 import TeamPage from './pages/team/TeamPage';
-import PlayerDataPage from './pages/player-data/PlayerData';
+import PlayerDataPage from './pages/player-data/PlayerDataPage';
 
 import { setCurrentUser } from './redux/user/user.actions';
 
