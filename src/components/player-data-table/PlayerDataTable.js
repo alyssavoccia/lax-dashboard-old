@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { DataGrid } from '@mui/x-data-grid';
+import { DataGrid, GridToolbarContainer, GridToolbarExport, gridClasses } from '@mui/x-data-grid';
 
 import { firestore } from '../../firebase/firebase';
 import { doc, setDoc } from 'firebase/firestore';
@@ -30,7 +30,7 @@ function PlayerDataTable({ rows, currentUser }) {
 
       // user stops editing when the edit model is empty
       if (editedIds.length === 0) {
-        // Update on firebase
+        // Get updated values
         const updatedData = {
           displayName: editRowData.displayName.value,
           id: editRowData.id.value,
@@ -44,6 +44,7 @@ function PlayerDataTable({ rows, currentUser }) {
           forty: editRowData.forty.value
         }
 
+        // Update on firebase
         const docRef = doc(firestore, currentUser.team, editRowData.id.value, "data", editRowData.id.value);
         setDoc(docRef, updatedData);
       } else {
@@ -54,14 +55,24 @@ function PlayerDataTable({ rows, currentUser }) {
     [editRowData],
   );
 
+  function CustomToolbar() {
+    return (
+      <GridToolbarContainer className={gridClasses.toolbarContainer}>
+        <GridToolbarExport />
+      </GridToolbarContainer>
+    );
+  }
+
   return (
     <div style={{ backgroundColor: '#FFF', height: 500, width: '100%' }}>
       <DataGrid
+      exportButton={true}
         rows={rows}
         columns={columns}
         editMode="row"
         editRowsModel={editRowsModel}
         onEditRowsModelChange={handleEditRowsModelChange}
+        components={{ Toolbar: CustomToolbar }}
       />
     </div>
   );
