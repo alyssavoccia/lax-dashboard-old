@@ -59,7 +59,7 @@ class PerformanceRelativeToPeers extends PureComponent {
             <YAxis />
             <Tooltip />
             <ReferenceLine y={0} stroke="#000" />
-            <Bar dataKey="Player" fill="#82ca9d" stackId="stack" />
+            <Bar dataKey="Player" fill="#1976D2" stackId="stack" />
           </BarChart>
         </ResponsiveContainer>
       </React.Fragment>

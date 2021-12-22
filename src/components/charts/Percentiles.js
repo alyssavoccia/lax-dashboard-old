@@ -1,13 +1,13 @@
 import React, { PureComponent } from 'react';
 import Title from '../title/Title';
-import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
+import { PieChart, Pie, Cell, ResponsiveContainer, Legend } from 'recharts';
 
 const data = [
-  { name: 'Group A', value: 400 },
-  { name: 'Group B', value: 300 },
+  { name: 'Player', value: 400 },
+  { name: 'Team', value: 300 },
 ];
 
-const COLORS = ['#0088FE', '#383838'];
+const COLORS = ['#1976D2', '#9E9E9E'];
 
 const RADIAN = Math.PI / 180;
 const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }) => {
@@ -22,7 +22,7 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, per
   );
 };
 
-export default class Example extends PureComponent {
+class Percentiles extends PureComponent {
   render(props) {
     return (
       <React.Fragment>
@@ -36,16 +36,18 @@ export default class Example extends PureComponent {
               labelLine={false}
               label={renderCustomizedLabel}
               outerRadius={80}
-              fill="#8884d8"
               dataKey="value"
             >
               {data.map((entry, index) => (
                 <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
               ))}
             </Pie>
+            <Legend />
           </PieChart>
         </ResponsiveContainer>
       </React.Fragment>
     );
   }
 }
+
+export default Percentiles;

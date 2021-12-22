@@ -61,7 +61,7 @@ export default class TapScore extends PureComponent {
           >
             <XAxis type="number"/>
             <YAxis type="category" dataKey="name" />
-            <Bar dataKey="uv" fill="#8884d8" />
+            <Bar dataKey="uv" fill="#1976D2" />
           </BarChart>
         </ResponsiveContainer>
       </React.Fragment>

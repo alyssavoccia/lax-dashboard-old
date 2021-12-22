@@ -53,6 +53,7 @@ class TeamPage extends React.Component {
   
   render() {
     let usersDataArr = this.state.usersData;
+    const capitalTeam = this.props.currentUser.team[0].toUpperCase() + this.props.currentUser.team.slice(1);
 
     return (
       <Box
@@ -69,7 +70,7 @@ class TeamPage extends React.Component {
       >
         <Toolbar />
         <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-          <Title>{this.props.currentUser.team.toUpperCase()} ROSTER</Title>
+          <Title>{capitalTeam} Roster</Title>
           <Grid container spacing={3}>
             {usersDataArr !== undefined  
               ? usersDataArr.map((player, i) => {

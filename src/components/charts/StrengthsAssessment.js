@@ -33,8 +33,8 @@ class StrengthsAssessment extends PureComponent {
             <PolarGrid />
             <PolarAngleAxis dataKey="subject" />
             <PolarRadiusAxis />
-            <Radar name="Player" dataKey="A" stroke="#8884d8" fill="#8884d8" fillOpacity={0.6} />
-            <Radar name="Average" dataKey="B" stroke="#383838" fill="#383838" fillOpacity={0.3} />
+            <Radar name="Player" dataKey="A" stroke="#1976D2" fill="#1976D2" fillOpacity={0.6} />
+            <Radar name="Average" dataKey="B" stroke="#757575" fill="#757575" fillOpacity={0.3} />
             <Legend />
           </RadarChart>
         </ResponsiveContainer>

@@ -69,6 +69,9 @@ function Navbar({ currentUser }) {
     setOpen(!open);
   };
 
+  const splitName = currentUser.displayName.split(' ');
+  const avatarInitials = splitName[0][0] + splitName[1][0];
+
   return (
     <>
       <AppBar position="absolute" open={open}>
@@ -100,7 +103,7 @@ function Navbar({ currentUser }) {
               Lax Dashboard
             </Typography>
             <IconButton color="inherit">
-              <Avatar>AV</Avatar>
+              <Avatar>{avatarInitials}</Avatar>
             </IconButton>
           </Toolbar>
         </AppBar>
