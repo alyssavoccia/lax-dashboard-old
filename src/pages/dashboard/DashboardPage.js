@@ -1,126 +1,69 @@
 import * as React from 'react';
+import { connect } from 'react-redux';
+
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
 
+import DashboardPlayerSearch from '../../components/dashboard-search/DashboardPlayerSearch';
 import Title from '../../components/title/Title'
-import PerformanceRelativeToPeers from '../../components/charts/PerformanceRelativeToPeers'
-import StrengthsAssessment from '../../components/charts/StrengthsAssessment';
-import Percentiles from '../../components/charts/Percentiles.js';
-import TapScore from '../../components/charts/TapScore.js';
+import DashboardGrid from '../../components/dashboard-grid/DashboardGrid';
 
-function DashboardPage() {
 
-  return (
-    <Box
-      component="main"
-      sx={{
-        backgroundColor: (theme) =>
-          theme.palette.mode === 'light'
-            ? theme.palette.grey[100]
-            : theme.palette.grey[900],
-        flexGrow: 1,
-        height: '100vh',
-        overflow: 'auto',
-      }}
-    >
-      <Toolbar />
+// function handlePlayerChange(e, value) {
+//   return value;
+// }
 
-      {/* DASHBOARD GRID ITEMS */}
-      <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-        <Grid container spacing={3}>
-          {/* ROW 1 */}
-          {/* PERFORMANCE RELATIVE TO PEERS */}
-          <Grid item xs={12} md={8} lg={6}>
-            <Paper
-              sx={{
-                p: 2,
-                display: 'flex',
-                flexDirection: 'column',
-                height: 300,
-              }}
-            >
-              <PerformanceRelativeToPeers />
-            </Paper>
-          </Grid>
-          {/* STRENGTHS ASSESSMENT */}
-          <Grid item xs={12} md={4} lg={6}>
-            <Paper
-              sx={{
-                p: 2,
-                display: 'flex',
-                flexDirection: 'column',
-                height: 300,
-              }}
-            >
-              <StrengthsAssessment />
-            </Paper>
-          </Grid>
+class DashboardPage extends React.Component {
+  state = {};
 
-          {/* ROW 2 */}
-          {/* PERCENTILE / 50'S WALL BALL */}
-          <Grid item xs={12} md={4} lg={4}>
-            <Paper
-              sx={{
-                p: 2,
-                display: 'flex',
-                flexDirection: 'column',
-                height: 300,
-              }}
-            >
-              <Percentiles title="50's Wall Ball" />
-            </Paper>
-          </Grid>
-          {/* PERCENTILE / 300's */}
-          <Grid item xs={12} md={4} lg={4}>
-            <Paper
-              sx={{
-                p: 2,
-                display: 'flex',
-                flexDirection: 'column',
-                height: 300,
-              }}
-            >
-              <Percentiles title="300's" />
-            </Paper>
-          </Grid>
-          {/* PERCENTILE / BROAD JUMP */}
-          <Grid item xs={12} md={4} lg={4}>
-            <Paper
-              sx={{
-                p: 2,
-                display: 'flex',
-                flexDirection: 'column',
-                height: 300,
-              }}
-            >
-              <Percentiles title="Broad Jump" />
-            </Paper>
-          </Grid>
+  handlePlayerChange = (e, value) => {
+    this.setState({
+      chosenPlayer: value
+    })
+  }
 
-          {/* ROW 3 */}
-          {/* TAP SCORE */}
-          <Grid item xs={12} md={6}>
-            <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-              <TapScore />
-            </Paper>
-          </Grid>
+  render() {
 
-          <Grid item xs={12} md={6}>
-            <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-              <Title>Strengths / Areas for Improvement</Title>
-            </Paper>
-          </Grid>
-        </Grid>
+    return (
+      <Box
+        component="main"
+        sx={{
+          backgroundColor: (theme) =>
+            theme.palette.mode === 'light'
+              ? theme.palette.grey[100]
+              : theme.palette.grey[900],
+          flexGrow: 1,
+          height: '100vh',
+          overflow: 'auto',
+        }}
+      >
+        <Toolbar />
 
-        {/* <Copyright sx={{ pt: 4 }} /> */}
-      </Container>
-    </Box>
-  );
+        { this.props.currentUser && this.props.currentUser.isAdmin 
+          ? <Container maxWidth="lg" sx={{mt: 4, mb: 2}}>
+              <DashboardPlayerSearch onChange={this.handlePlayerChange} />
+            </Container>
+          : <></>
+        }
+
+       
+        {/* DASHBOARD GRID ITEMS */}
+        <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+        { this.props.currentUser && !this.props.currentUser.isAdmin 
+          ? <DashboardGrid data={this.props.currentUser} />
+          : this.state.chosenPlayer === undefined || this.state.chosenPlayer === '' || this.state.chosenPlayer == null
+          ? <Title>Please choose a player to view their dashboard.</Title>
+          : <DashboardGrid />
+        }
+        </Container>
+      </Box>
+    );
+  }
 }
 
-export default function Dashboard() {
-  return <DashboardPage/>;
-}
+const mapStateToProps = ({user}) => ({
+  currentUser: user.currentUser
+});
+
+export default connect(mapStateToProps)(DashboardPage);
