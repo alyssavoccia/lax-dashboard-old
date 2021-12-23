@@ -29,24 +29,24 @@ function TeamPageCard({ name, position, grad, agility, broad, forty, three, vert
             </Stack>
             <Stack>
               <Chip label="40yd Dash" color="primary" />
-              <Typography>{forty}</Typography>
+              <Typography>{forty ? forty : 'N/A'}</Typography>
             </Stack>
           </Stack>
           {/* ROW 2 */}
           <Stack direction="row" spacing={3}>
             <Stack>
               <Chip label="300's" color="primary" />
-              <Typography>{three}</Typography>
+              <Typography>{three ? three : 'N/A'}</Typography>
             </Stack>
             <Stack>
               <Chip label="Vertical Jump" color="primary" />
-              <Typography>{vertical}</Typography>
+              <Typography>{vertical ? vertical : 'N/A'}</Typography>
             </Stack>
             <Stack>
               <Chip label="5-10-5" color="primary" />
-              <Typography>{agility}</Typography>
+              <Typography>{agility ? agility : 'N/A'}</Typography>
             </Stack>
-            
+    
           </Stack>
         </Stack>
       </CardContent>

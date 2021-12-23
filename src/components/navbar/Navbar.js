@@ -69,8 +69,12 @@ function Navbar({ currentUser }) {
     setOpen(!open);
   };
 
-  const splitName = currentUser.displayName.split(' ');
-  const avatarInitials = splitName[0][0] + splitName[1][0];
+  let avatarInitials;
+
+  if (currentUser.displayName) {
+    const splitName = currentUser.displayName.split(' ');
+    avatarInitials = splitName[0][0] + splitName[1][0];
+  }
 
   return (
     <>
