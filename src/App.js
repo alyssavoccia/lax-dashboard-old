@@ -8,7 +8,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 
 import Navbar from './components/navbar/Navbar';
-import SignIn from './pages/sign-in/SignIn';
+import SignInSignUp from './pages/sign-in-and-sign-up/SignInSignUp';
 import DashboardPage from './pages/dashboard/DashboardPage';
 import ProfilePage from './pages/profile/ProfilePage';
 import TeamPage from './pages/team/TeamPage';
@@ -28,9 +28,12 @@ class App extends React.Component {
 
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
       if (userAuth) {
+        console.log(this.props.currentUser)
         const userRef = await createUserProfileDocument(userAuth);
+        console.log(userRef);
 
         userRef.onSnapshot(snapShot => {
+          console.log(snapShot.data());
           setCurrentUser({
               id: snapShot.id,
               ...snapShot.data()
@@ -55,7 +58,7 @@ class App extends React.Component {
           <Box sx={{ display: 'flex' }}>
             {this.props.currentUser ? (<Navbar />) : (<Redirect to='/' />)}
             <Switch>
-              <Route exact path = '/' render={() => this.props.currentUser ? (<Redirect to='/dashboard' />) : (<SignIn />)} />
+              <Route exact path = '/' render={() => this.props.currentUser ? (<Redirect to='/dashboard' />) : (<SignInSignUp />)} />
               <Route path='/dashboard' component={DashboardPage} />
               <Route path='/profile' component={ProfilePage} />
               <Route path='/team' component={TeamPage} />

@@ -1,6 +1,7 @@
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 import 'firebase/compat/auth';
+// import { display } from '@mui/system';
 
 const config = {
   apiKey: "AIzaSyDCD3o38z83yQfyXslC-9HrYiBdirDNNss",
@@ -12,30 +13,54 @@ const config = {
   measurementId: "G-76Y3F1XRS3"
 };
 
-export const createUserProfileDocument = async (userAuth, additionalData) => {
-  if (!userAuth) return;
+firebase.initializeApp(config);
+
+export const createUserProfileDocument = async (userAuth, displayName, team) => {
+  if (!userAuth) {
+    alert('No login')
+    return;
+  }
 
   const userRef = firestore.doc(`users/${userAuth.uid}`);
 
-  const snapShot = await userRef.get();
+  let teamSnapshot;
 
-  if (!snapShot.exists) {
-    const {displayName, email} = userAuth;
-    try {
-      await userRef.set({
-        displayName,
-        email,
-        ...additionalData
-      })
-    } catch (error) {
-      console.log('error creating user', error.message);
+  if (team) {
+    const teamRef = firestore.collection(team);
+    teamSnapshot = await teamRef.get();
+  }
+  
+
+  const teamUserRef = firestore.doc(`${team}/${userAuth.uid}`);
+
+  const snapShot = await userRef.get();
+  
+  if (!snapShot.exists && teamSnapshot) {
+    if (teamSnapshot.size !== 0) {
+      const { email, uid } = userAuth;
+      try {
+        await userRef.set({
+          displayName,
+          email,
+          isAdmin: false,
+          team
+        });
+        await teamUserRef.set({
+          displayName,
+          id: uid,
+          isAdmin: false
+        })
+      } catch (error) {
+        console.log('error creating user', error.message);
+      }
     }
   }
-
+  
+  console.log(userRef);
   return userRef;
 }
 
-firebase.initializeApp(config);
+
 
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
