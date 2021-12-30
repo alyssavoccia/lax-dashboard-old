@@ -49,7 +49,7 @@ export const createUserProfileDocument = async (userAuth, displayName, team) => 
           displayName,
           id: uid,
           isAdmin: false
-        })
+        });
       } catch (error) {
         console.log('error creating user', error.message);
       }
