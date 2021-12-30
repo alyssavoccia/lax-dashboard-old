@@ -50,6 +50,16 @@ export const createUserProfileDocument = async (userAuth, displayName, team) => 
           id: uid,
           isAdmin: false
         });
+        firestore.collection(team).doc(userAuth.uid).collection('data').doc(userAuth.uid).set({
+          agility: null,
+          broad: null,
+          forty: null,
+          grad: null,
+          position: null,
+          three: null,
+          vertical: null,
+          wb: null
+        });
       } catch (error) {
         console.log('error creating user', error.message);
       }

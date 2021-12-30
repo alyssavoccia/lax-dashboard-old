@@ -63,8 +63,8 @@ class ProfilePage extends React.Component {
                   {this.props.currentUser.isAdmin 
                   ? <Chip label="Admin" /> 
                   : <>
-                      <Chip label={position} />
-                      <Chip label={grad} />
+                      <Chip label={position ? position : 'N/A'} />
+                      <Chip label={grad ? grad : 'N/A'} />
                     </>
                   }
                 </Stack>

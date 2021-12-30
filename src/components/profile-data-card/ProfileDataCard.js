@@ -25,7 +25,7 @@ function ProfileDataCard({ dataTitle, data }) {
             {dataTitle}
           </Typography>
           <Typography variant="h5" component="div">
-            {data}
+            {data ? data : 'N/A'}
          </Typography>
         </CardContent>
       </Paper>
