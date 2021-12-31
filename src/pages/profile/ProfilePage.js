@@ -59,12 +59,13 @@ class ProfilePage extends React.Component {
             <Grid item xs={12}>
               <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', height: 100, justifyContent: 'center', alignItems: 'flex-start' }}>
                 <Title>{this.props.currentUser.displayName}</Title>
+                
                 <Stack direction="row" spacing={2}>
                   {this.props.currentUser.isAdmin 
                   ? <Chip label="Admin" /> 
                   : <>
-                      <Chip label={position ? position : 'N/A'} />
-                      <Chip label={grad ? grad : 'N/A'} />
+                      <Chip label={position ? position : 'POS'} />
+                      <Chip label={grad ? grad : 'GRAD'} />
                     </>
                   }
                 </Stack>

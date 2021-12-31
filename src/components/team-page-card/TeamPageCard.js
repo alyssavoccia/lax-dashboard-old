@@ -13,7 +13,7 @@ function TeamPageCard({ name, position, grad, agility, broad, forty, three, vert
           {name}
         </Typography>
         <Typography sx={{ mb: 1.5 }} color="text.secondary">
-          {position} &bull; {grad}
+          {position ? position : 'POS'} &bull; {grad ? grad : 'GRAD'}
         </Typography>
 
         <Stack spacing={1} alignItems="center">
