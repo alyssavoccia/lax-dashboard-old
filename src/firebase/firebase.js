@@ -15,7 +15,7 @@ const config = {
 
 firebase.initializeApp(config);
 
-export const createUserProfileDocument = async (userAuth, displayName, team) => {
+export const createUserProfileDocument = async (userAuth, displayName, team, grad = null, position = null) => {
   if (!userAuth) {
     alert('No login')
     return;
@@ -35,7 +35,8 @@ export const createUserProfileDocument = async (userAuth, displayName, team) => 
 
   const snapShot = await userRef.get();
   
-  if (!snapShot.exists && teamSnapshot) {
+  if (!snapShot.exists && teamSnapshot !== undefined) {
+    console.log(teamSnapshot);
     if (teamSnapshot.size !== 0) {
       const { email, uid } = userAuth;
       try {
@@ -54,12 +55,14 @@ export const createUserProfileDocument = async (userAuth, displayName, team) => 
           agility: null,
           broad: null,
           forty: null,
-          grad: null,
-          position: null,
+          grad: grad,
+          position: position,
           three: null,
           vertical: null,
           wb: null
         });
+
+        
       } catch (error) {
         console.log('error creating user', error.message);
       }

@@ -7,9 +7,11 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import Typography from '@mui/material/Typography';
+import ButtonGroup from '@mui/material/ButtonGroup';
 
 import 'firebase/compat/auth';
 import { auth, createUserProfileDocument } from '../../firebase/firebase';
+import SignUpHS from '../sign-up-hs/SignUpHS';
 
 class SignUp extends React.Component {
   constructor() {
@@ -68,7 +70,12 @@ class SignUp extends React.Component {
           Sign Up
         </Typography>
         <Box component="form" noValidate sx={{ mt: 1 }}>
-        <TextField
+          <TextField
+            inputProps={{
+              form: {
+                autocomplete: 'off'
+              }
+            }}
             margin="normal"
             required
             fullWidth
@@ -78,6 +85,11 @@ class SignUp extends React.Component {
             value={displayName}
           />
           <TextField
+            inputProps={{
+              form: {
+                autocomplete: 'off'
+              }
+            }}
             margin="normal"
             required
             fullWidth
@@ -88,6 +100,11 @@ class SignUp extends React.Component {
             value={email}
           />
           <TextField
+            inputProps={{
+              form: {
+                autocomplete: 'off'
+              }
+            }}
             margin="normal"
             required
             fullWidth
@@ -116,15 +133,17 @@ class SignUp extends React.Component {
             value={team}
             onChange={this.handleChange}
           />
-          <Button
-            onClick={this.handleSubmit}
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-          >
-            Sign Up
-          </Button>
+          <ButtonGroup sx={{ mt: 2, ml: 0, mr: 0}}>
+            <Button
+              onClick={this.handleSubmit}
+              type="submit"
+              sx={{pl: 15, pr: 15, mr: 2}}
+              variant="contained"
+            >
+              Sign Up
+            </Button>
+            <SignUpHS />
+          </ButtonGroup>
         </Box>
       </Grid>
     );
