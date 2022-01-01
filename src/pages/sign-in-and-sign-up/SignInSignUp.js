@@ -10,6 +10,11 @@ import 'firebase/compat/auth';
 import SignIn from '../../components/sign-in/SignIn';
 import SignUp from '../../components/sign-up/SignUp';
 
+import {loadStripe} from '@stripe/stripe-js';
+import {Elements} from '@stripe/react-stripe-js';
+
+const stripePromise = loadStripe(String(process.env.PUBLISHABLE_KEY));
+
 const theme = createTheme();
 
 const SignInSignUp = () => (
@@ -26,7 +31,7 @@ const SignInSignUp = () => (
       >
         <Grid container spacing={5}>
           <SignIn />
-          <SignUp />
+          <Elements stripe={stripePromise}><SignUp /></Elements>
         </Grid>            
       </Box>
     </Container>

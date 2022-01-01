@@ -24,6 +24,7 @@ export const createUserProfileDocument = async (userAuth, displayName, team, gra
   const userRef = firestore.doc(`users/${userAuth.uid}`);
 
   let teamSnapshot;
+  console.log(teamSnapshot)
 
   if (team) {
     const teamRef = firestore.collection(team);
@@ -36,7 +37,6 @@ export const createUserProfileDocument = async (userAuth, displayName, team, gra
   const snapShot = await userRef.get();
   
   if (!snapShot.exists && teamSnapshot !== undefined) {
-    console.log(teamSnapshot);
     if (teamSnapshot.size !== 0) {
       const { email, uid } = userAuth;
       try {

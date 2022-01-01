@@ -1,12 +1,20 @@
 import * as React from 'react';
+
+import Box from "@mui/material/Box";
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import MenuItem from '@mui/material/MenuItem';
+import Stepper from "@mui/material/Stepper";
+import Step from "@mui/material/Step";
+import StepLabel from "@mui/material/StepLabel";
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
+
+import {CardElement} from '@stripe/react-stripe-js';
 
 import 'firebase/compat/auth';
 import { auth, createUserProfileDocument } from '../../firebase/firebase';
@@ -24,6 +32,7 @@ class SignUpHS extends React.Component {
       position: '',
       grad: '',
       open: false,
+      activeStep: 0,
     };
 
     this.handleClose = this.handleClose.bind(this);
@@ -43,13 +52,23 @@ class SignUpHS extends React.Component {
   }
 
   handleSubmit = async event => {
-    event.preventDefault();
+    // event.preventDefault();
 
     const {displayName, email, password, confirmPassword, team, grad, position} = this.state;
 
     if (password !== confirmPassword) {
-      alert("Password don't match");
+      <Alert severity="error">
+        <AlertTitle>Error</AlertTitle>
+        Passwords <strong>do not</strong> match.
+      </Alert>
       return;
+    }
+
+    if (password.length < 6) {
+      <Alert severity="error">
+        <AlertTitle>Error</AlertTitle>
+        Password must be<strong>at least</strong> 6 characters long.
+      </Alert>
     }
 
     try {
@@ -78,7 +97,25 @@ class SignUpHS extends React.Component {
   }
 
   render() {
-    const {displayName, email, password, confirmPassword, team, grad, position, open} = this.state;
+    const {displayName, email, password, confirmPassword, team, grad, position, open, activeStep} = this.state;
+
+    const handleNext = () => {
+      this.setState({
+        activeStep: activeStep + 1
+      });
+    }
+  
+    const handleBack = () => {
+      this.setState({
+        activeStep: activeStep - 1
+      })
+    };
+
+    const steps = [
+      "Player Information",
+      "Payment Information"
+    ];
+
     const gradYears = [
       {
         value: '2023',
@@ -97,6 +134,7 @@ class SignUpHS extends React.Component {
         label: '2026'
       }
     ];
+
     const positions = [
       {
         value: 'A',
@@ -110,7 +148,8 @@ class SignUpHS extends React.Component {
         value: 'D',
         label: 'D'
       }
-    ]
+    ];
+  
 
     return (
       <div>
@@ -120,120 +159,153 @@ class SignUpHS extends React.Component {
         <Dialog open={open} onClose={this.handleClose} height='100%'>
           <DialogTitle>High School Sign Up</DialogTitle>
           <DialogContent>
-            <DialogContentText>
+            <DialogContentText sx={{mb: 1}}>
               To sign up, please fill out the required information below.
             </DialogContentText>
-            <TextField
-              inputProps={{
-                form: {
-                  autocomplete: 'off'
-                }
-              }}
-              required
-              autoFocus
-              margin="dense"
-              label="Full Name"
-              name="displayName"
-              fullWidth
-              variant="standard"
-              onChange={this.handleChange}
-              value={displayName}
-            />
-            <TextField
-              inputProps={{
-                form: {
-                  autocomplete: 'off'
-                }
-              }}
-              required
-              margin="dense"
-              label="Email Address"
-              type="email"
-              name='email'
-              fullWidth
-              variant="standard"
-              onChange={this.handleChange}
-              value={email}
-            />
-            <TextField
-              inputProps={{
-                form: {
-                  autocomplete: 'off'
-                }
-              }}
-              margin="dense"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              variant="standard"
-              onChange={this.handleChange}
-              value={password}
-            />
-            <TextField
-              margin="dense"
-              required
-              fullWidth
-              name="confirmPassword"
-              label="Confirm Password"
-              type="password"
-              variant="standard"
-              onChange={this.handleChange}
-              value={confirmPassword}
-            />
-            <TextField
-              margin="dense"
-              disabled
-              fullWidth
-              label="Team Code"
-              name="team"
-              value={team}
-              variant="standard"
-              onChange={this.handleChange}
-            />
-            <TextField
-              required
-              select
-              fullWidth
-              label="Grad Year"
-              name="grad"
-              value={grad}
-              onChange={this.handleChange}
-              helperText="Please select your grad year"
-              variant="standard"
-            >
-              {gradYears.map((option) => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.label}
-                </MenuItem>
-              ))}
-            </TextField>
-            <TextField
-              required
-              select
-              fullWidth
-              label="Position"
-              name="position"
-              value={position}
-              onChange={this.handleChange}
-              helperText="Please select your position"
-              variant="standard"
-            >
-              {positions.map((option) => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.label}
-                </MenuItem>
-              ))}
-            </TextField>
-            <DialogContentText sx={{mt: 2, fontSize: 20,}} color="primary">
-              Total: $1
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
+            <Stepper activeStep={activeStep}>
+              {steps.map((label, index) => {
+                const stepProps = {};
+                const labelProps = {};
+
+                return (
+                  <Step key={label} {...stepProps}>
+                    <StepLabel {...labelProps}>{label}</StepLabel>
+                  </Step>
+                );
+              })}
+            </Stepper>
+            {activeStep === 0 ?
+            <>
+              <TextField
+                inputProps={{
+                  form: {
+                    autocomplete: 'off'
+                  }
+                }}
+                required
+                autoFocus
+                margin="dense"
+                label="Full Name"
+                name="displayName"
+                fullWidth
+                variant="standard"
+                onChange={this.handleChange}
+                value={displayName}
+              />
+              <TextField
+                inputProps={{
+                  form: {
+                    autocomplete: 'off'
+                  }
+                }}
+                required
+                margin="dense"
+                label="Email Address"
+                type="email"
+                name='email'
+                fullWidth
+                variant="standard"
+                onChange={this.handleChange}
+                value={email}
+              />
+              <TextField
+                inputProps={{
+                  form: {
+                    autocomplete: 'off'
+                  }
+                }}
+                margin="dense"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                variant="standard"
+                onChange={this.handleChange}
+                value={password}
+              />
+              <TextField
+                margin="dense"
+                required
+                fullWidth
+                name="confirmPassword"
+                label="Confirm Password"
+                type="password"
+                variant="standard"
+                onChange={this.handleChange}
+                value={confirmPassword}
+              />
+              <TextField
+                margin="dense"
+                disabled
+                fullWidth
+                label="Team Code"
+                name="team"
+                value={team}
+                variant="standard"
+                onChange={this.handleChange}
+              />
+              <TextField
+                required
+                select
+                fullWidth
+                label="Grad Year"
+                name="grad"
+                value={grad}
+                onChange={this.handleChange}
+                helperText="Please select your grad year"
+                variant="standard"
+              >
+                {gradYears.map((option) => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </TextField>
+              <TextField
+                required
+                select
+                fullWidth
+                label="Position"
+                name="position"
+                value={position}
+                onChange={this.handleChange}
+                helperText="Please select your position"
+                variant="standard"
+              >
+                {positions.map((option) => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </TextField>
+            </>
+            : 
+              <Box sx={{mt: 2}}>
+                <CardElement />
+                <DialogContentText sx={{mt: 2, fontSize: 20,}} color="primary">
+                  Total: $1
+                </DialogContentText>
+              </Box>
+            }
+            
+            <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
             <Button onClick={this.handleClose}>Cancel</Button>
-            <Button variant="contained" onClick={this.handleSubmit}>Sign Up</Button>
-          </DialogActions>
+            <Button
+                color="inherit"
+                disabled={activeStep === 0}
+                onClick={handleBack}
+                sx={{ mr: 1 }}
+              >
+                Back
+              </Button>
+              <Box sx={{ flex: "1 1 auto" }} />
+
+              <Button onClick={handleNext}>
+                {activeStep === steps.length - 1 ? "Finish" : "Next"}
+              </Button>
+            </Box>
+          </DialogContent>
         </Dialog>
       </div>
     );

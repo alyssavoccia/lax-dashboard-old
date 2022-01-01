@@ -7,11 +7,16 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import Typography from '@mui/material/Typography';
-import ButtonGroup from '@mui/material/ButtonGroup';
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
+
+
 
 import 'firebase/compat/auth';
-import { auth, createUserProfileDocument } from '../../firebase/firebase';
+import { auth, createUserProfileDocument, firestore } from '../../firebase/firebase';
 import SignUpHS from '../sign-up-hs/SignUpHS';
+
+
 
 class SignUp extends React.Component {
   constructor() {
@@ -22,7 +27,7 @@ class SignUp extends React.Component {
       email: '',
       password: '',
       confirmPassword: '',
-      team: ''
+      team: '',
     };
   }
 
@@ -32,9 +37,29 @@ class SignUp extends React.Component {
     const {displayName, email, password, confirmPassword, team} = this.state;
 
     if (password !== confirmPassword) {
-      alert("Password don't match");
+      <Alert severity="error">
+        <AlertTitle>Error</AlertTitle>
+        Passwords <strong>do not</strong> match.
+      </Alert>
       return;
     }
+
+    const teamRef = firestore.collection(team);
+    const teamSnapshot = await teamRef.get();
+
+    if (teamSnapshot.size === 0) {
+
+
+      console.log('team does not exist')
+      return;
+    }
+
+    // if (password.length < 6) {
+    //   <Alert severity="error">
+    //     <AlertTitle>Error</AlertTitle>
+    //     Password must be<strong>at least</strong> 6 characters long.
+    //   </Alert>
+    // }
 
     try {
       const { user } = await auth.createUserWithEmailAndPassword(email, password);
@@ -133,17 +158,24 @@ class SignUp extends React.Component {
             value={team}
             onChange={this.handleChange}
           />
-          <ButtonGroup sx={{ mt: 2, ml: 0, mr: 0}}>
+          <Box display='flex' justifyContent='space-between'>
             <Button
               onClick={this.handleSubmit}
               type="submit"
-              sx={{pl: 15, pr: 15, mr: 2}}
+              sx={{pl: 15, pr: 15, mb: 1}}
               variant="contained"
             >
               Sign Up
             </Button>
             <SignUpHS />
-          </ButtonGroup>
+          </Box>
+          <Typography variant='h5' color='red'>
+            Test Payments for HS Sign Up
+          </Typography>
+          <Typography variant='h6' color='red'>
+            4242 4242 4242 4242
+            Exp: 01/22  CVV: 123
+          </Typography>
         </Box>
       </Grid>
     );
