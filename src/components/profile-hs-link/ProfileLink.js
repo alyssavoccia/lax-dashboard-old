@@ -1,0 +1,35 @@
+import * as React from 'react';
+
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import Chip from '@mui/material/Chip';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+
+function ProfileLink({dataTitle, data}) {
+  return (
+    <Box sx={{display: 'flex', flexDirection: 'column'}}>
+      <Box component="form">
+        <Grid container spacing={4}>
+          <Grid item xs={12} sm={10}>
+          <Box sx={{ display: 'flex', alignItems: 'flex-end', width: '100%'}}>
+            <Chip label={data ? "90 Days Remaining" : "Active"} color={data ? "error" : "success"} sx={{mr: 1}} />
+            <TextField
+              label={dataTitle}
+              variant="standard" 
+              sx={{width: '100%'}} 
+            />
+          </Box>
+          </Grid>
+          <Grid item xs={12} sm={2}>
+            <Button sx={{mt: 2}} variant='outlined' fullWidth>Submit</Button>
+          </Grid>
+        </Grid>
+        
+      </Box>
+    </Box>
+    
+  );
+}
+
+export default ProfileLink;

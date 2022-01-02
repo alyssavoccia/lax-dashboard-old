@@ -60,8 +60,14 @@ export const createUserProfileDocument = async (userAuth, displayName, team, gra
           vertical: null,
           wb: null
         });
-
-        
+        firestore.collection(team).doc(userAuth.uid).collection('links').doc(userAuth.uid).set({
+          agilityLink: null,
+          broadLink: null,
+          fortyLink: null,
+          threeLink: null,
+          verticalLink: null,
+          wbLink: null
+        });
       } catch (error) {
         console.log('error creating user', error.message);
       }
