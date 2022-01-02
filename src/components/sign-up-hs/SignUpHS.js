@@ -11,8 +11,8 @@ import MenuItem from '@mui/material/MenuItem';
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
-import Alert from '@mui/material/Alert';
-import AlertTitle from '@mui/material/AlertTitle';
+// import Alert from '@mui/material/Alert';
+// import AlertTitle from '@mui/material/AlertTitle';
 
 import {CardElement} from '@stripe/react-stripe-js';
 
@@ -20,6 +20,12 @@ import 'firebase/compat/auth';
 import { auth, createUserProfileDocument, firestore } from '../../firebase/firebase';
 
 let formRef = React.createRef();
+
+const currentUsers = [];
+
+firestore.collection('users').onSnapshot((snapshot) => {
+  snapshot.docs.map((user) => currentUsers.push(user.data().email));
+});
 
 class SignUpHS extends React.Component {
   constructor() {
@@ -55,28 +61,28 @@ class SignUpHS extends React.Component {
   }
 
   // What happens when the form is submitted
-  handleClick = async event => {
-    event.preventDefault();
+  handleSubmit = async event => {
+    // event.preventDefault();
 
-    const {displayName, email, password, confirmPassword, team, grad, position} = this.state;
+    const { displayName, email, password, team, position, grad } = this.state;
 
-    // try {
-    //   const { user } = await auth.createUserWithEmailAndPassword(email, password);
+    try {
+      const { user } = await auth.createUserWithEmailAndPassword(email, password);
 
-    //   await createUserProfileDocument(user, displayName, team, grad, position);
+      await createUserProfileDocument(user, displayName, team, grad, position);
 
-    //   this.setState({
-    //     displayName: '',
-    //     email: '',
-    //     password: '',
-    //     confirmPassword: '',
-    //     team: ''
-    //   });
+      this.setState({
+        displayName: '',
+        email: '',
+        password: '',
+        confirmPassword: '',
+        team: ''
+      });
 
-    //   this.handleClose();
-    // } catch (error) {
-    //   console.log(error);
-    // }
+      this.handleClose();
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   // When a user upates form, the state updates
@@ -102,15 +108,8 @@ class SignUpHS extends React.Component {
           return;
         }
 
-        const currentUsers = [];
-        console.log(currentUsers);
-
-        firestore.collection('users').onSnapshot((snapshot) => {
-          snapshot.docs.map((user) => currentUsers.push(user.data().email));
-        });
-
-        if (currentUsers !== null) {
-          if (currentUsers.indexOf(email) < 0) {
+        if (currentUsers !== null && currentUsers.length > 0) {
+          if (currentUsers.indexOf(email) >= 0) {
             alert('That email address has already been used, please use a different one.');
             return;
           } else {
@@ -305,7 +304,7 @@ class SignUpHS extends React.Component {
               </Button>
               <Box sx={{ flex: "1 1 auto" }} />
 
-              <Button onClick={(event) => event.target.innerHTML.indexOf('Next') == 0 ? handleNext() : this.handleSubmit()}>
+              <Button onClick={(event) => event.target.innerHTML.indexOf('Next') === 0 ? handleNext() : this.handleSubmit()}>
                 {activeStep === steps.length - 1 ? "Submit" : "Next"}
               </Button>
             </Box>

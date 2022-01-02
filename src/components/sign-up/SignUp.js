@@ -174,7 +174,7 @@ class SignUp extends React.Component {
           </Typography>
           <Typography variant='h6' color='red'>
             4242 4242 4242 4242
-            Exp: 01/22  CVV: 123
+            Exp: 12/22  CVV: 123 ZIP: 12345
           </Typography>
         </Box>
       </Grid>
