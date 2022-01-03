@@ -23,11 +23,11 @@ class ProfileHsLinkGrid extends React.Component {
         const linkDocRef = doc(firestore, self.props.currentUser.team, self.props.currentUser.id, "links", self.props.currentUser.id);
         const linkDocSnap = await getDoc(linkDocRef);
         const userLinkObj = linkDocSnap.data();
-        console.log(userLinkObj);
+
+        // Checking to see if the user's link has expired
         for (const entry in userLinkObj) {
           if (entry.includes('Expires') && userLinkObj[entry]) {
             const today = new Date().getTime() / 1000;
-            console.log(userLinkObj[entry].seconds - today)
             if ((userLinkObj[entry].seconds - today) / 86400 <= 0) {
               const link = entry.slice(0, -7);
               const updatedValue = {
@@ -82,7 +82,29 @@ class ProfileHsLinkGrid extends React.Component {
   render() {
     const { agilityLink, broadLink, fortyLink, threeLink, verticalLink, wbLink, wbLinkExpires, threeLinkExpires, broadLinkExpires, verticalLinkExpires, agilityLinkExpires, fortyLinkExpires } = this.state;
 
-    const today = new Date().getTime() / 1000;
+    // Calculating the time left before links expire
+    const timeLeftHolder = {};
+
+    if (this.state) {
+      for (const entry in this.state) {
+        if (entry.includes('Expires') && this.state[entry]) {
+          // Creates "wbLeft", "threeLeft", ...etc variables
+          const varLeft = entry.slice(0, -11) + 'Left';
+          // Get the date and how many days are remaining
+          const today = new Date().getTime() / 1000;
+          const daysRemaining = Math.round((this.state[entry].seconds - today) / 86400);
+          // If value comes out to 0, gets the number of hours and minutes remaining
+          if (daysRemaining === 0) {
+            const timeLeft = new Date(0, 0);
+            timeLeft.setMinutes((this.state[entry].seconds - today) / 60);
+            timeLeftHolder[varLeft] = timeLeft.toTimeString().slice(0, 5);
+            // If more than 1 day remaining, returns days remaining
+          } else {
+            timeLeftHolder[varLeft] = daysRemaining;
+          }
+        }
+      }
+    }
 
     return (
       <Grid container direction='row' alignItems='flex-start' sx={{m: '20px 35px'}}>
@@ -96,22 +118,22 @@ class ProfileHsLinkGrid extends React.Component {
         <></>
         :<>
           <Grid item xs={12} sx={{textAlign: 'left', mt: 2}}>
-            <ProfileHsLink dataTitle="Wall Ball Link" data={wbLink} handleSubmit={this.handleSubmit} dataId="wbLink" expires={wbLinkExpires ? Math.round((wbLinkExpires.seconds - today) / 86400) : undefined} handleExpires={this.handleExpires} />
+            <ProfileHsLink dataTitle="Wall Ball Link" data={wbLink} handleSubmit={this.handleSubmit} dataId="wbLink" expires={wbLinkExpires ? timeLeftHolder.wbLeft : undefined} handleExpires={this.handleExpires} />
           </Grid>
           <Grid item xs={12} sx={{textAlign: 'left', mt: 2}}>
-            <ProfileHsLink dataTitle="300's Link" data={threeLink} handleSubmit={this.handleSubmit} dataId="threeLink" expires={threeLinkExpires ? Math.round((threeLinkExpires.seconds - today) / 86400) : undefined} />
+            <ProfileHsLink dataTitle="300's Link" data={threeLink} handleSubmit={this.handleSubmit} dataId="threeLink" expires={threeLinkExpires ? timeLeftHolder.threeLeft : undefined} />
           </Grid>
           <Grid item xs={12} sx={{textAlign: 'left', mt: 2}}>
-            <ProfileHsLink dataTitle="Broad Jump Link" data={broadLink} handleSubmit={this.handleSubmit} dataId="broadLink" expires={broadLinkExpires ? Math.round((broadLinkExpires.seconds - today) / 86400) : undefined} />
+            <ProfileHsLink dataTitle="Broad Jump Link" data={broadLink} handleSubmit={this.handleSubmit} dataId="broadLink" expires={broadLinkExpires ? timeLeftHolder.broadLeft : undefined} />
           </Grid>
           <Grid item xs={12} sx={{textAlign: 'left', mt: 2}}>
-            <ProfileHsLink dataTitle="Vertical Jump Link" data={verticalLink} handleSubmit={this.handleSubmit} dataId="verticalLink" expires={verticalLinkExpires ? Math.round((verticalLinkExpires.seconds - today) / 86400) : undefined} />
+            <ProfileHsLink dataTitle="Vertical Jump Link" data={verticalLink} handleSubmit={this.handleSubmit} dataId="verticalLink" expires={verticalLinkExpires ? timeLeftHolder.verticalLeft : undefined} />
           </Grid>
           <Grid item xs={12} sx={{textAlign: 'left', mt: 2}}>
-            <ProfileHsLink dataTitle="5-10-5 Link" data={agilityLink} handleSubmit={this.handleSubmit} dataId="agilityLink" expires={agilityLinkExpires ? Math.round((agilityLinkExpires.seconds - today) / 86400) : undefined} />
+            <ProfileHsLink dataTitle="5-10-5 Link" data={agilityLink} handleSubmit={this.handleSubmit} dataId="agilityLink" expires={agilityLinkExpires ? timeLeftHolder.agilityLeft : undefined} />
           </Grid>
           <Grid item xs={12} sx={{textAlign: 'left', mt: 2}}>
-            <ProfileHsLink dataTitle="40yd Dash Link" data={fortyLink} handleSubmit={this.handleSubmit} dataId="fortyLink" expires={fortyLinkExpires ? Math.round((fortyLinkExpires.seconds - today) / 86400) : undefined} />
+            <ProfileHsLink dataTitle="40yd Dash Link" data={fortyLink} handleSubmit={this.handleSubmit} dataId="fortyLink" expires={fortyLinkExpires ? timeLeftHolder.fortyLeft : undefined} />
           </Grid>
         </>
   

@@ -13,7 +13,7 @@ function ProfileHsLink({dataTitle, dataId, data, expires, handleSubmit}) {
         <Grid container spacing={4}>
           <Grid item xs={12} sm={10}>
           <Box id={dataId} sx={{ display: 'flex', alignItems: 'flex-end', width: '100%'}}>
-            <Chip label={data ? `${expires ? expires : '90'} Days Remaining` : "Active"} color={data ? "error" : "success"} sx={{mr: 1}} />
+            <Chip label={data ? `${expires ? expires : '90'} ${isNaN(expires) ? '' : 'Days'} Remaining` : "Active"} color={data ? "error" : "success"} sx={{mr: 1}} />
             <TextField
               disabled={data ? true : false}
               id={dataId}
