@@ -6,14 +6,14 @@ import Chip from '@mui/material/Chip';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 
-function ProfileHsLink({dataTitle, dataId, data, handleSubmit}) {
+function ProfileHsLink({dataTitle, dataId, data, expires, handleSubmit}) {
   return (
     <Box sx={{display: 'flex', flexDirection: 'column'}}>
       <Box component="form">
         <Grid container spacing={4}>
           <Grid item xs={12} sm={10}>
           <Box id={dataId} sx={{ display: 'flex', alignItems: 'flex-end', width: '100%'}}>
-            <Chip label={data ? "90 Days Remaining" : "Active"} color={data ? "error" : "success"} sx={{mr: 1}} />
+            <Chip label={data ? `${expires} Days Remaining` : "Active"} color={data ? "error" : "success"} sx={{mr: 1}} />
             <TextField
               disabled={data ? true : false}
               id={dataId}

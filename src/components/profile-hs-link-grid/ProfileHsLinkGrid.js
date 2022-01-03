@@ -18,33 +18,21 @@ class ProfileHsLinkGrid extends React.Component {
 
     // Get the current user's data if not an admin
     if (!this.props.currentUser.isAdmin) {
-      async function getUserData() {
-        const docRef = doc(firestore, self.props.currentUser.team, self.props.currentUser.id, "data", self.props.currentUser.id);
-        const docSnap = await getDoc(docRef);
-
-        const userDataObj = docSnap.data();
-        self.setState({
-          ...userDataObj
-        });
-      }
-
       // Get information for high school student link upload
       async function getUserLinks() {
         const linkDocRef = doc(firestore, self.props.currentUser.team, self.props.currentUser.id, "links", self.props.currentUser.id);
         const linkDocSnap = await getDoc(linkDocRef);
-
         const userLinkObj = linkDocSnap.data();
         self.setState({
           ...userLinkObj
         });
       }
-      getUserData();
       getUserLinks();
     }
   }
 
   render() {
-    const { agilityLink, broadLink, fortyLink, threeLink, verticalLink, wbLink } = this.state;
+    const { agilityLink, broadLink, fortyLink, threeLink, verticalLink, wbLink, wbLinkExpires, threeLinkExpires, broadLinkExpires, verticalLinkExpires, agilityLinkExpires, fortyLinkExpires } = this.state;
     const currentUser = this.props.currentUser;
 
     function handleSubmit(e) {
@@ -74,6 +62,7 @@ class ProfileHsLinkGrid extends React.Component {
       input.value = '';
     }
 
+    const today = new Date().getTime() / 1000;
 
     return (
       <Grid container direction='row' alignItems='flex-start' sx={{m: '20px 35px'}}>
@@ -83,24 +72,30 @@ class ProfileHsLinkGrid extends React.Component {
           You can submit a new link for each category every 90 days.
         </Typography>
         </Grid>
-        <Grid item xs={12} sx={{textAlign: 'left', mt: 2}}>
-          <ProfileHsLink dataTitle="Wall Ball Link" data={wbLink} handleSubmit={handleSubmit} dataId="wbLink" />
-        </Grid>
-        <Grid item xs={12} sx={{textAlign: 'left', mt: 2}}>
-          <ProfileHsLink dataTitle="300's Link" data={threeLink} />
-        </Grid>
-        <Grid item xs={12} sx={{textAlign: 'left', mt: 2}}>
-          <ProfileHsLink dataTitle="Broad Jump Link" data={broadLink} />
-        </Grid>
-        <Grid item xs={12} sx={{textAlign: 'left', mt: 2}}>
-          <ProfileHsLink dataTitle="Vertical Jump Link" data={verticalLink} />
-        </Grid>
-        <Grid item xs={12} sx={{textAlign: 'left', mt: 2}}>
-          <ProfileHsLink dataTitle="5-10-5 Link" data={agilityLink} />
-        </Grid>
-        <Grid item xs={12} sx={{textAlign: 'left', mt: 2}}>
-          <ProfileHsLink dataTitle="40yd Dash Link" data={fortyLink} />
-        </Grid>
+        {wbLinkExpires === undefined ?
+        <></>
+        :<>
+          <Grid item xs={12} sx={{textAlign: 'left', mt: 2}}>
+            <ProfileHsLink dataTitle="Wall Ball Link" data={wbLink} handleSubmit={handleSubmit} dataId="wbLink" expires={wbLinkExpires ? Math.round((wbLinkExpires.seconds - today) / 86400) : undefined} />
+          </Grid>
+          <Grid item xs={12} sx={{textAlign: 'left', mt: 2}}>
+            <ProfileHsLink dataTitle="300's Link" data={threeLink} handleSubmit={handleSubmit} dataId="threeLink" expires={threeLinkExpires ? Math.round((threeLinkExpires.seconds - today) / 86400) : undefined} />
+          </Grid>
+          <Grid item xs={12} sx={{textAlign: 'left', mt: 2}}>
+            <ProfileHsLink dataTitle="Broad Jump Link" data={broadLink} expires={broadLinkExpires ? Math.round((broadLinkExpires.seconds - today) / 86400) : undefined} />
+          </Grid>
+          <Grid item xs={12} sx={{textAlign: 'left', mt: 2}}>
+            <ProfileHsLink dataTitle="Vertical Jump Link" data={verticalLink} expires={verticalLinkExpires ? Math.round((verticalLinkExpires - today) / 86400) : undefined} />
+          </Grid>
+          <Grid item xs={12} sx={{textAlign: 'left', mt: 2}}>
+            <ProfileHsLink dataTitle="5-10-5 Link" data={agilityLink} expires={agilityLinkExpires ? Math.round((agilityLinkExpires - today) / 86400) : undefined} />
+          </Grid>
+          <Grid item xs={12} sx={{textAlign: 'left', mt: 2}}>
+            <ProfileHsLink dataTitle="40yd Dash Link" data={fortyLink} expires={fortyLinkExpires ? Math.round((fortyLinkExpires - today) / 86400) : undefined} />
+          </Grid>
+        </>
+  
+        }
       </Grid>
     )
   }
