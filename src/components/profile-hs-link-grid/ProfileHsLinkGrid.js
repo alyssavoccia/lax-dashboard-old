@@ -23,6 +23,23 @@ class ProfileHsLinkGrid extends React.Component {
         const linkDocRef = doc(firestore, self.props.currentUser.team, self.props.currentUser.id, "links", self.props.currentUser.id);
         const linkDocSnap = await getDoc(linkDocRef);
         const userLinkObj = linkDocSnap.data();
+        console.log(userLinkObj);
+        for (const entry in userLinkObj) {
+          if (entry.includes('Expires') && userLinkObj[entry]) {
+            const today = new Date().getTime() / 1000;
+            console.log(userLinkObj[entry].seconds - today)
+            if ((userLinkObj[entry].seconds - today) / 86400 <= 0) {
+              const link = entry.slice(0, -7);
+              const updatedValue = {
+                [link]: null,
+                [entry]: null
+              }
+              // Update on firebase
+              const docRef = doc(firestore, self.props.currentUser.team, self.props.currentUser.id, "links", self.props.currentUser.id);
+              updateDoc(docRef, updatedValue);
+            }
+          }
+        }
         self.setState({
           ...userLinkObj
         });
@@ -64,7 +81,7 @@ class ProfileHsLinkGrid extends React.Component {
 
   render() {
     const { agilityLink, broadLink, fortyLink, threeLink, verticalLink, wbLink, wbLinkExpires, threeLinkExpires, broadLinkExpires, verticalLinkExpires, agilityLinkExpires, fortyLinkExpires } = this.state;
-  
+
     const today = new Date().getTime() / 1000;
 
     return (
@@ -79,7 +96,7 @@ class ProfileHsLinkGrid extends React.Component {
         <></>
         :<>
           <Grid item xs={12} sx={{textAlign: 'left', mt: 2}}>
-            <ProfileHsLink dataTitle="Wall Ball Link" data={wbLink} handleSubmit={this.handleSubmit} dataId="wbLink" expires={wbLinkExpires ? Math.round((wbLinkExpires.seconds - today) / 86400) : undefined} />
+            <ProfileHsLink dataTitle="Wall Ball Link" data={wbLink} handleSubmit={this.handleSubmit} dataId="wbLink" expires={wbLinkExpires ? Math.round((wbLinkExpires.seconds - today) / 86400) : undefined} handleExpires={this.handleExpires} />
           </Grid>
           <Grid item xs={12} sx={{textAlign: 'left', mt: 2}}>
             <ProfileHsLink dataTitle="300's Link" data={threeLink} handleSubmit={this.handleSubmit} dataId="threeLink" expires={threeLinkExpires ? Math.round((threeLinkExpires.seconds - today) / 86400) : undefined} />

@@ -27,8 +27,6 @@ firestore.collection('users').onSnapshot((snapshot) => {
   snapshot.docs.map((user) => currentUsers.push(user.data().email));
 });
 
-console.log(currentUsers)
-
 class SignUpHS extends React.Component {
   constructor() {
     super();
