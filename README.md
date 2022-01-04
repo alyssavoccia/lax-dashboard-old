@@ -8,6 +8,8 @@ High school sign up is a new feature that was implemented. This allows high scho
 
 ## Testing
 
+You can view a demo of the project [here](https://alyssavoccia.github.io/lax-dashboard)!
+
 ###### College/Club Team Views
 > **Admin:** *username:* heatadmin@gmail.com *password:* test123  
 > **Player:** *username:* heatadmin@gmail.com *password:* test123
