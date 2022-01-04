@@ -29,7 +29,6 @@ export const createUserProfileDocument = async (userAuth, displayName, team, gra
     const teamRef = firestore.collection(team);
     teamSnapshot = await teamRef.get();
   }
-  
 
   const teamUserRef = firestore.doc(`${team}/${userAuth.uid}`);
 

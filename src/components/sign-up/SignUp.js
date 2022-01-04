@@ -48,9 +48,7 @@ class SignUp extends React.Component {
     const teamSnapshot = await teamRef.get();
 
     if (teamSnapshot.size === 0) {
-
-
-      console.log('team does not exist')
+      Alert('Team does not exist');
       return;
     }
 

@@ -7,6 +7,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import LogoutIcon from '@mui/icons-material/Logout'
 import PeopleIcon from '@mui/icons-material/People'
 import AssignmentIcon from '@mui/icons-material/Assignment';
+import FilePresentIcon from '@mui/icons-material/FilePresent';
 
 import { auth } from '../../firebase/firebase';
 
@@ -51,3 +52,12 @@ export const secondaryListItems = (
     </ListItem>
   </div>
 );
+
+export const highschoolAdminListItems = (
+  <ListItem button to='/hs-link-submissions' component={Link}>
+      <ListItemIcon>
+        <FilePresentIcon />
+      </ListItemIcon>
+    <ListItemText primary="Player Submissions" />
+  </ListItem>
+)
