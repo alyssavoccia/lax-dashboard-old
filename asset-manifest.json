@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/static/css/main.073c9b0a.css",
-    "main.js": "/static/js/main.e95526a9.js",
-    "index.html": "/index.html",
-    "main.073c9b0a.css.map": "/static/css/main.073c9b0a.css.map",
-    "main.e95526a9.js.map": "/static/js/main.e95526a9.js.map"
+    "main.css": "/lax-dashboard/static/css/main.073c9b0a.css",
+    "main.js": "/lax-dashboard/static/js/main.c85fe1e8.js",
+    "index.html": "/lax-dashboard/index.html",
+    "main.073c9b0a.css.map": "/lax-dashboard/static/css/main.073c9b0a.css.map",
+    "main.c85fe1e8.js.map": "/lax-dashboard/static/js/main.c85fe1e8.js.map"
   },
   "entrypoints": [
     "static/css/main.073c9b0a.css",
-    "static/js/main.e95526a9.js"
+    "static/js/main.c85fe1e8.js"
   ]
 }
