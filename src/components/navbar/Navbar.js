@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import {styled} from '@mui/material/styles';
 import MuiDrawer from '@mui/material/Drawer';
@@ -12,6 +13,10 @@ import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Toolbar from '@mui/material/Toolbar';
+import ListItem from '@mui/material/ListItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import FilePresentIcon from '@mui/icons-material/FilePresent';
 
 import { mainListItems, secondaryListItems } from './nav-list-items';
 
@@ -127,10 +132,26 @@ function Navbar({ currentUser }) {
             </IconButton>
           </Toolbar>
           <List>{mainListItems}</List>
-          {currentUser.isAdmin ? <>
-            <Divider />
-            <List>{secondaryListItems}</List>
-          </> : <></> }
+          {currentUser.isAdmin 
+          ? <>
+              <Divider />
+              <List>{secondaryListItems}</List>
+            </> 
+          : <></> }
+          {currentUser.isAdmin && currentUser.team === 'highschool'
+            ? <>
+                <Divider />
+                <List>
+                  <ListItem button to='/hs-link-submissions' component={Link}>
+                    <ListItemIcon>
+                      <FilePresentIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Player Submissions" />
+                  </ListItem>
+                </List>
+              </>
+            : <></>
+          }
         </Drawer>
     </>
   )

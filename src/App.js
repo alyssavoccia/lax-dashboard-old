@@ -13,6 +13,7 @@ import DashboardPage from './pages/dashboard/DashboardPage';
 import ProfilePage from './pages/profile/ProfilePage';
 import TeamPage from './pages/team/TeamPage';
 import PlayerDataPage from './pages/player-data/PlayerDataPage';
+import HsLinkSubmissionsPage from './pages/hs-link-submissions/HsLinkSubmissionsPage';
 
 import { setCurrentUser } from './redux/user/user.actions';
 
@@ -62,6 +63,7 @@ class App extends React.Component {
               <Route path='/profile' component={ProfilePage} />
               <Route path='/team' component={TeamPage} />
               <Route path='/player-data' component={PlayerDataPage} />
+              <Route path='/hs-link-submissions' component={HsLinkSubmissionsPage} />
             </Switch>
           </Box>
         </ThemeProvider>

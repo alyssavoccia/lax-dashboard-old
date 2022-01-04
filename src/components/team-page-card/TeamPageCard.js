@@ -18,14 +18,14 @@ function TeamPageCard({ name, position, grad, agility, broad, forty, three, vert
 
         <Stack spacing={1} alignItems="center">
           {/* ROW 1 */}
-          <Stack direction="row" spacing={2}>
+          <Stack direction="row" spacing={1}>
             <Stack>
               <Chip label="50's Wall Ball" color="primary" />
               <Typography>{wb ? wb : 'N/A'}</Typography>
             </Stack>
             <Stack>
               <Chip label="Broad Jump" color="primary" />
-              <Typography>{broad}</Typography>
+              <Typography>{broad ? broad : 'N/A'}</Typography>
             </Stack>
             <Stack>
               <Chip label="40yd Dash" color="primary" />
@@ -33,7 +33,7 @@ function TeamPageCard({ name, position, grad, agility, broad, forty, three, vert
             </Stack>
           </Stack>
           {/* ROW 2 */}
-          <Stack direction="row" spacing={3}>
+          <Stack direction="row" spacing={1}>
             <Stack>
               <Chip label="300's" color="primary" />
               <Typography>{three ? three : 'N/A'}</Typography>

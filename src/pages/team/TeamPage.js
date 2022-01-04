@@ -23,8 +23,11 @@ class TeamPage extends React.Component {
     if (self.props.currentUser.isAdmin) {
       async function getTeam() {
         const snapshot = await firestore.collection(self.props.currentUser.team).get();
-        snapshot.docs.map(doc => users.push(doc.data()));
-
+        snapshot.docs.map(doc => {
+          if (!doc.data().isAdmin) {
+            users.push(doc.data());
+          }
+        });
         if (users.length > 0) {
           getUserData();
         }
