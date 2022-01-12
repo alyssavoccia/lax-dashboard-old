@@ -118,9 +118,6 @@ class SignUpHS extends React.Component {
             });
           }
         }
-
-
-        
       }
     }
   
@@ -316,5 +313,3 @@ class SignUpHS extends React.Component {
 }
 
 export default SignUpHS;
-
-// () => 

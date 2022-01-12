@@ -1,10 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-
-import Grid from '@mui/material/Grid';
-
 import { firestore } from '../../firebase/firebase';
 import { doc, getDoc } from 'firebase/firestore';
+
+import Grid from '@mui/material/Grid';
 
 import ProfileDataCard from '../../components/profile-data-card/ProfileDataCard';
 

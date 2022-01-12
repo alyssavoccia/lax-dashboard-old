@@ -75,7 +75,6 @@ class ProfilePage extends React.Component {
               </Paper>
             </Grid>
 
-            {/* Checks to see if the user is an admin before making data cards */}
             {/*  PLAYER DATA CARDS */}
             {currentUser.isAdmin 
               ? <></> 

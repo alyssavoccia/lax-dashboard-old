@@ -13,12 +13,11 @@ function ProfileDataCard({ dataTitle, data }) {
         flexWrap: 'wrap',
         '& > :not(style)': {
           m: 1,
-          width: 300,
+          width: 350,
           height: 100,
         },
       }}
     >
-
       <Paper>
         <CardContent>
           <Typography sx={{ fontSize: 16 }} color="text.secondary" gutterBottom>

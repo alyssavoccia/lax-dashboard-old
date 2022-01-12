@@ -1,6 +1,3 @@
-import * as React from 'react';
-// import { connect } from 'react-redux';
-
 import Title from '../../components/title/Title'
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
@@ -68,6 +65,8 @@ function DashboardGrid() {
           <Percentiles title="300's" />
         </Paper>
       </Grid>
+      
+      {/* ROW 3 */}
       {/* PERCENTILE / BROAD JUMP */}
       <Grid item xs={12} md={6}>
         <Paper
@@ -95,7 +94,7 @@ function DashboardGrid() {
         </Paper>
       </Grid>
 
-      {/* ROW 3 */}
+      {/* ROW 4 */}
       {/* TAP SCORE */}
       <Grid item xs={12} md={6}>
         <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
