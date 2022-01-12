@@ -4,7 +4,7 @@ import { Radar, RadarChart, PolarGrid, Legend, PolarAngleAxis, PolarRadiusAxis, 
 
 const data = [
   {
-    subject: "The 50's Wall Ball Test",
+    subject: "50's Wall Ball",
     A: 120,
     B: 110,
     fullMark: 150,

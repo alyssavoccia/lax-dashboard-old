@@ -9,7 +9,7 @@ import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Link from '@mui/material/Link';
 
-function HsSubmissionsPageCard({name, playerId, wbLink, threeLink, fortyLink, broadLink, verticalLink, agilityLink, handleDelete}) {
+function HsSubmissionsPageCard({name, playerId, wbLink, threeLink, broadLink, agilityLink, handleDelete}) {
   return (
     <Card sx={{ minWidth: 275 }}>
       <CardContent>
@@ -43,19 +43,6 @@ function HsSubmissionsPageCard({name, playerId, wbLink, threeLink, fortyLink, br
               </ListItem>
             : undefined
           }
-          {fortyLink
-            ? <ListItem
-                id={playerId}
-                secondaryAction={
-                  <IconButton id={'fortyLink'} edge="end" aria-label="delete" onClick={handleDelete}>
-                    <DeleteIcon />
-                  </IconButton>
-                }
-              >
-                <Link href={fortyLink} target="_blank"><ListItemText primary="40yd Dash Test" /></Link>
-              </ListItem>
-            : undefined
-          }
           {broadLink
             ? <ListItem
                 id={playerId}
@@ -66,19 +53,6 @@ function HsSubmissionsPageCard({name, playerId, wbLink, threeLink, fortyLink, br
                 }
               >
                 <Link href={broadLink} target="_blank"><ListItemText primary="Broad Jump Test" /></Link>
-              </ListItem>
-            : undefined
-          }
-          {verticalLink
-            ? <ListItem
-                id={playerId}
-                secondaryAction={
-                  <IconButton id={'verticalLink'} edge="end" aria-label="delete" onClick={handleDelete}>
-                    <DeleteIcon />
-                  </IconButton>
-                }
-              >
-                <Link href={verticalLink} target="_blank"><ListItemText primary="Vertical Jump Test" /></Link>
               </ListItem>
             : undefined
           }

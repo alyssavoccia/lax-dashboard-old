@@ -87,9 +87,7 @@ class TeamPage extends React.Component {
                         grad={player.grad}
                         agility={player.agility}
                         broad={player.broad}
-                        forty={player.forty}
                         three={player.three}
-                        vertical={player.vertical}
                         wb={player.wb}
                       /> 
                     </Grid>

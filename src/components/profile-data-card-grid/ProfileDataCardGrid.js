@@ -31,47 +31,35 @@ class ProfileDataCardGrid extends React.Component {
   }
 
   render() {
-    const { agility, broad, forty, three, vertical, wb} = this.state;
+    const { agility, broad, three, wb} = this.state;
 
     return (
       <>
         {/* ROW 1 */}
-        <Grid item xs={12} sm={6} md={4}>
+        <Grid item xs={12} sm={6}>
           <ProfileDataCard 
             dataTitle="50's Wall Ball" 
             data={wb}
           />
         </Grid>
-        <Grid item xs={12} sm={6} md={4}>
+        <Grid item xs={12} sm={6}>
           <ProfileDataCard 
             dataTitle="300's" 
             data={three}
           />
         </Grid>
-        <Grid item xs={12} sm={6} md={4}>
-          <ProfileDataCard 
-            dataTitle="Broad Jump" 
-            data={broad}
-          />
-        </Grid>
 
         {/* ROW 2 */}
-        <Grid item xs={12} sm={6} md={4}>
-          <ProfileDataCard 
-            dataTitle="Vertical Jump" 
-            data={vertical}
-          />
-        </Grid>
-        <Grid item xs={12} sm={6} md={4}>
+        <Grid item xs={12} sm={6}>
           <ProfileDataCard 
             dataTitle="5-10-5" 
             data={agility}
           />
         </Grid>
-        <Grid item xs={12} sm={6} md={4}>
+        <Grid item xs={12} sm={6}>
           <ProfileDataCard 
-            dataTitle="40yd Dash" 
-            data={forty}
+            dataTitle="Broad Jump" 
+            data={broad}
           />
         </Grid>
       </>

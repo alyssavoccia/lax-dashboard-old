@@ -81,7 +81,7 @@ class HsLinkSubmissionsPage extends React.Component {
 
     if (usersDataArr) {
       usersDataArr.map((player, i) => {
-        if (player.wbLink || player.threeLink || player.verticalLink || player.agilityLink || player.broadLink || player.fortyLink) {
+        if (player.wbLink || player.threeLink || player.agilityLink || player.broadLink) {
           userSubmissions.push(player);
         }
       });
@@ -115,8 +115,6 @@ class HsLinkSubmissionsPage extends React.Component {
                       threeLink={player.threeLink}
                       agilityLink={player.agilityLink}
                       broadLink={player.broadLink}
-                      verticalLink={player.verticalLink}
-                      fortyLink={player.fortyLink}
                       handleDelete={this.handleDelete}
                     />
                   </Grid>

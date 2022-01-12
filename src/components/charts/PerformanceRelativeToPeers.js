@@ -20,20 +20,10 @@ const data = [
     amt: 0,
   },
   {
-    name: 'Vertical',
-    Player: 1,
-    amt: 1.1,
-  },
-  {
     name: '5-10-5',
     Player: .5,
     amt: 1,
-  },
-  {
-    name: '40yd',
-    Player: 2,
-    amt: 1,
-  },
+  }
 ];
 
 class PerformanceRelativeToPeers extends PureComponent {

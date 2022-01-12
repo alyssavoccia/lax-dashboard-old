@@ -23,7 +23,7 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, per
 };
 
 class Percentiles extends PureComponent {
-  render(props) {
+  render() {
     return (
       <React.Fragment>
         <Title>{this.props.title}</Title>

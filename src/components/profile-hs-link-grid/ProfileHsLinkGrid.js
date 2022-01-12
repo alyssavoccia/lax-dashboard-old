@@ -1,12 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-
-import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
-import Title from '../../components/title/Title';
-
 import { firestore } from '../../firebase/firebase';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
+
+import Grid from '@mui/material/Grid';
+import Title from '../../components/title/Title';
 
 import ProfileHsLink from '../../components/profile-hs-link/ProfileHsLink';
 
@@ -24,22 +22,6 @@ class ProfileHsLinkGrid extends React.Component {
         const linkDocSnap = await getDoc(linkDocRef);
         const userLinkObj = linkDocSnap.data();
 
-        // Checking to see if the user's link has expired
-        for (const entry in userLinkObj) {
-          if (entry.includes('Expires') && userLinkObj[entry]) {
-            const today = new Date().getTime() / 1000;
-            if ((userLinkObj[entry].seconds - today) / 86400 <= 0) {
-              const link = entry.slice(0, -7);
-              const updatedValue = {
-                [link]: null,
-                [entry]: null
-              }
-              // Update on firebase
-              const docRef = doc(firestore, self.props.currentUser.team, self.props.currentUser.id, "links", self.props.currentUser.id);
-              updateDoc(docRef, updatedValue);
-            }
-          }
-        }
         self.setState({
           ...userLinkObj
         });
@@ -50,21 +32,17 @@ class ProfileHsLinkGrid extends React.Component {
 
   handleSubmit = (e) => {
     // Get the input id to know which value is being updated in firebase
-    const inputId = e.target.parentElement.parentElement.childNodes[0].childNodes[0].childNodes[1].childNodes[1].childNodes[0].id;
+    const inputId = e.target.parentElement.parentElement.childNodes[0].childNodes[0].id;
 
     // Get the link that the user entered
-    const inputValue = e.target.parentElement.parentElement.childNodes[0].childNodes[0].childNodes[1].childNodes[1].childNodes[0].value;
+    const inputValue = e.target.parentElement.parentElement.childNodes[0].childNodes[0].childNodes[0].childNodes[1].childNodes[0].value;
 
     // Get the input element
-    const input = e.target.parentElement.parentElement.childNodes[0].childNodes[0].childNodes[1].childNodes[1].childNodes[0];
-
-    // Create date submission expires
-    const expireDate = new Date(Date.now() + 90 * 24 * 60 * 60 * 1000);
+    const input = e.target.parentElement.parentElement.childNodes[0].childNodes[0].childNodes[0].childNodes[1].childNodes[0];
 
     // Create updated value object
     const updatedValue = {
-      [inputId]: inputValue,
-      [inputId + 'Expires']: expireDate
+      [inputId]: inputValue
     }
 
     // Update on firebase
@@ -80,60 +58,27 @@ class ProfileHsLinkGrid extends React.Component {
   }
 
   render() {
-    const { agilityLink, broadLink, fortyLink, threeLink, verticalLink, wbLink, wbLinkExpires, threeLinkExpires, broadLinkExpires, verticalLinkExpires, agilityLinkExpires, fortyLinkExpires } = this.state;
-
-    // Calculating the time left before links expire
-    const timeLeftHolder = {};
-
-    if (this.state) {
-      for (const entry in this.state) {
-        if (entry.includes('Expires') && this.state[entry]) {
-          // Creates "wbLeft", "threeLeft", ...etc variables
-          const varLeft = entry.slice(0, -11) + 'Left';
-          // Get the date and how many days are remaining
-          const today = new Date().getTime() / 1000;
-          const daysRemaining = Math.round((this.state[entry].seconds - today) / 86400);
-          // If value comes out to 0, gets the number of hours and minutes remaining
-          if (daysRemaining === 0) {
-            const timeLeft = new Date(0, 0);
-            timeLeft.setMinutes((this.state[entry].seconds - today) / 60);
-            timeLeftHolder[varLeft] = timeLeft.toTimeString().slice(0, 5);
-            // If more than 1 day remaining, returns days remaining
-          } else {
-            timeLeftHolder[varLeft] = daysRemaining;
-          }
-        }
-      }
-    }
+    const { agilityLink, broadLink, threeLink, wbLink } = this.state;
 
     return (
       <Grid container direction='row' alignItems='flex-start' sx={{m: '20px 35px'}}>
         <Grid sx={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start'}} item xs={12}>
         <Title>Upload Links</Title>
-        <Typography variant="caption" gutterBottom sx={{textAlign: 'left', marginTop: '-10px'}}>
-          You can submit a new link for each category every 90 days.
-        </Typography>
         </Grid>
-        {wbLinkExpires === undefined ?
-        <></>
+        {wbLink === undefined 
+        ? <></>
         :<>
           <Grid item xs={12} sx={{textAlign: 'left', mt: 2}}>
-            <ProfileHsLink dataTitle="Wall Ball Link" data={wbLink} handleSubmit={this.handleSubmit} dataId="wbLink" expires={wbLinkExpires ? timeLeftHolder.wbLeft : undefined} handleExpires={this.handleExpires} />
+            <ProfileHsLink dataTitle="Wall Ball Link" data={wbLink} handleSubmit={this.handleSubmit} dataId="wbLink" />
           </Grid>
           <Grid item xs={12} sx={{textAlign: 'left', mt: 2}}>
-            <ProfileHsLink dataTitle="300's Link" data={threeLink} handleSubmit={this.handleSubmit} dataId="threeLink" expires={threeLinkExpires ? timeLeftHolder.threeLeft : undefined} />
+            <ProfileHsLink dataTitle="300's Link" data={threeLink} handleSubmit={this.handleSubmit} dataId="threeLink" />
           </Grid>
           <Grid item xs={12} sx={{textAlign: 'left', mt: 2}}>
-            <ProfileHsLink dataTitle="Broad Jump Link" data={broadLink} handleSubmit={this.handleSubmit} dataId="broadLink" expires={broadLinkExpires ? timeLeftHolder.broadLeft : undefined} />
+            <ProfileHsLink dataTitle="Broad Jump Link" data={broadLink} handleSubmit={this.handleSubmit} dataId="broadLink" />
           </Grid>
           <Grid item xs={12} sx={{textAlign: 'left', mt: 2}}>
-            <ProfileHsLink dataTitle="Vertical Jump Link" data={verticalLink} handleSubmit={this.handleSubmit} dataId="verticalLink" expires={verticalLinkExpires ? timeLeftHolder.verticalLeft : undefined} />
-          </Grid>
-          <Grid item xs={12} sx={{textAlign: 'left', mt: 2}}>
-            <ProfileHsLink dataTitle="5-10-5 Link" data={agilityLink} handleSubmit={this.handleSubmit} dataId="agilityLink" expires={agilityLinkExpires ? timeLeftHolder.agilityLeft : undefined} />
-          </Grid>
-          <Grid item xs={12} sx={{textAlign: 'left', mt: 2}}>
-            <ProfileHsLink dataTitle="40yd Dash Link" data={fortyLink} handleSubmit={this.handleSubmit} dataId="fortyLink" expires={fortyLinkExpires ? timeLeftHolder.fortyLeft : undefined} />
+            <ProfileHsLink dataTitle="5-10-5 Link" data={agilityLink} handleSubmit={this.handleSubmit} dataId="agilityLink" />
           </Grid>
         </>
   

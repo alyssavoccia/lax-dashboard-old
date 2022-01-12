@@ -13,9 +13,7 @@ const columns = [
   { field: 'wb', headerName: "50's Wall Ball", type: 'number', width: 120, editable: true },
   { field: 'three', headerName: "300's", type: 'number', width: 60, editable: true },
   { field: 'broad', headerName: 'Broad Jump', type: 'number', width: 110, editable: true },
-  { field: 'vertical', headerName: 'Vertical Jump', type: 'number', width: 120, editable: true },
   { field: 'agility', headerName: '5-10-5', type: 'number', width: 75, editable: true },
-  { field: 'forty', headerName: '40yd Dash', type: 'number', editable: true },
 ];
 
 
@@ -39,9 +37,7 @@ function PlayerDataTable({ rows, currentUser }) {
           wb: editRowData.wb.value,
           three: editRowData.three.value,
           broad: editRowData.broad.value,
-          vertical: editRowData.vertical.value,
           agility: editRowData.agility.value,
-          forty: editRowData.forty.value
         }
 
         // Update on firebase

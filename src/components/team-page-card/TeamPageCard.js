@@ -5,7 +5,7 @@ import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 
-function TeamPageCard({ name, position, grad, agility, broad, forty, three, vertical, wb }) {
+function TeamPageCard({ name, position, grad, agility, broad, three, wb }) {
   return (
     <Card sx={{ minWidth: 275 }}>
       <CardContent>
@@ -27,20 +27,12 @@ function TeamPageCard({ name, position, grad, agility, broad, forty, three, vert
               <Chip label="Broad Jump" color="primary" />
               <Typography>{broad ? broad : 'N/A'}</Typography>
             </Stack>
-            <Stack>
-              <Chip label="40yd Dash" color="primary" />
-              <Typography>{forty ? forty : 'N/A'}</Typography>
-            </Stack>
           </Stack>
           {/* ROW 2 */}
           <Stack direction="row" spacing={1}>
             <Stack>
               <Chip label="300's" color="primary" />
               <Typography>{three ? three : 'N/A'}</Typography>
-            </Stack>
-            <Stack>
-              <Chip label="Vertical Jump" color="primary" />
-              <Typography>{vertical ? vertical : 'N/A'}</Typography>
             </Stack>
             <Stack>
               <Chip label="5-10-5" color="primary" />

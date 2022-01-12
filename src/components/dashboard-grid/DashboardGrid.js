@@ -15,7 +15,7 @@ function DashboardGrid() {
     <Grid container spacing={3}>
       {/* ROW 1 */}
       {/* PERFORMANCE RELATIVE TO PEERS */}
-      <Grid item xs={12} md={8} lg={6}>
+      <Grid item xs={12} md={6}>
         <Paper
           sx={{
             p: 2,
@@ -28,7 +28,7 @@ function DashboardGrid() {
         </Paper>
       </Grid>
       {/* STRENGTHS ASSESSMENT */}
-      <Grid item xs={12} md={4} lg={6}>
+      <Grid item xs={12} md={6}>
         <Paper
           sx={{
             p: 2,
@@ -43,7 +43,7 @@ function DashboardGrid() {
 
       {/* ROW 2 */}
       {/* PERCENTILE / 50'S WALL BALL */}
-      <Grid item xs={12} md={4} lg={4}>
+      <Grid item xs={12} md={6}>
         <Paper
           sx={{
             p: 2,
@@ -56,7 +56,7 @@ function DashboardGrid() {
         </Paper>
       </Grid>
       {/* PERCENTILE / 300's */}
-      <Grid item xs={12} md={4} lg={4}>
+      <Grid item xs={12} md={6}>
         <Paper
           sx={{
             p: 2,
@@ -69,7 +69,7 @@ function DashboardGrid() {
         </Paper>
       </Grid>
       {/* PERCENTILE / BROAD JUMP */}
-      <Grid item xs={12} md={4} lg={4}>
+      <Grid item xs={12} md={6}>
         <Paper
           sx={{
             p: 2,
@@ -79,6 +79,19 @@ function DashboardGrid() {
           }}
         >
           <Percentiles title="Broad Jump" />
+        </Paper>
+      </Grid>
+      {/* PERCENTILE / 5-10-5 */}
+      <Grid item xs={12} md={6}>
+        <Paper
+          sx={{
+            p: 2,
+            display: 'flex',
+            flexDirection: 'column',
+            height: 300,
+          }}
+        >
+          <Percentiles title="5-10-5" />
         </Paper>
       </Grid>
 
